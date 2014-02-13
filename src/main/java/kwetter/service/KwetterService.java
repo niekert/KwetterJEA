@@ -50,7 +50,7 @@ public class KwetterService implements Serializable {
     }
 
     public User find(String name){
-        return userDAO
+        return userDAO.find(name);
     }
 
     public int count() {
@@ -58,17 +58,17 @@ public class KwetterService implements Serializable {
     }
 
     private void initUsers() {
-        User u1 = new User("Hans", "http", "geboren 1");
+        User u1 = new User("Niek", "http", "geboren 1");
         User u2 = new User("Frank", "httpF", "geboren 2");
         User u3 = new User("Tom", "httpT", "geboren 3");
-        User u4 = new User("Niek", "httpS", "geboren 4");
+        User u4 = new User("Hans", "httpS", "geboren 4");
         u1.addFollowing(u2);
         u1.addFollowing(u3);
         u1.addFollowing(u4);
 
-        Tweet t1 = new Tweet("Hallo", new Date(), "PC");
-        Tweet t2 = new Tweet("Hallo again", new Date(), "PC");
-        Tweet t3 = new Tweet("Hallo where are you", new Date(), "PC");
+        Tweet t1 = new Tweet("Watching TV OMG LOL #SoBoring", new Date(), "PC");
+        Tweet t2 = new Tweet("New Flappy bird highscore #swag", new Date(), "PC");
+        Tweet t3 = new Tweet("Sittin' on a toilet", new Date(), "PC");
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);

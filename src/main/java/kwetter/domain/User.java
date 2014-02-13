@@ -1,11 +1,14 @@
 package kwetter.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
-public class User  {
+public class User implements Serializable
+{
     private static final long serialVersionUID = 1L;
 
     private String name;
@@ -13,7 +16,7 @@ public class User  {
     private String bio;
 
     private Collection<User> following = new ArrayList();
-    private Collection<Tweet> tweets = new ArrayList();
+    private List<Tweet> tweets = new ArrayList();
 
     public User() {
     }
@@ -60,11 +63,11 @@ public class User  {
         this.following = following;
     }
 
-    public Collection<Tweet> getTweets() {
-        return Collections.unmodifiableCollection(tweets);
+    public List<Tweet> getTweets() {
+        return tweets;
     }
 
-    public void setTweets(Collection<Tweet> tweets) {
+    public void setTweets(List<Tweet> tweets) {
         this.tweets = tweets;
     }
 

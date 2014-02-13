@@ -39,7 +39,6 @@
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:2.0.10.Final" level="project" />
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:2.0.10.Final" level="project" />
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-integration-faces:2.0.10.Final" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:16.0.1" level="project" />
   </component>
 </module>
 

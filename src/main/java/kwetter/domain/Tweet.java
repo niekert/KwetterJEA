@@ -1,11 +1,12 @@
 package kwetter.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class Tweet {
-    private static final long serialVersionUID = 1L;
-    private String tweet;
+public class Tweet implements Serializable{
+    private static final long serialVersionUID = 2L;
+    private String content;
     private Date postDate;
     private String postedFrom;
 
@@ -13,21 +14,23 @@ public class Tweet {
     }
 
     public Tweet(String tweet) {
-        this.tweet = tweet;
+        this.content = tweet;
     }
 
     public Tweet(String tweet, Date datum, String vanaf) {
-        this.tweet = tweet;
+        this.content = tweet;
         this.postDate = datum;
         this.postedFrom = vanaf;
     }
 
-    public String getTweet() {
-        return tweet;
+    public String getContent()
+    {
+        return content;
     }
 
-    public void setTweet(String tweet) {
-        this.tweet = tweet;
+    public void setContent(String content)
+    {
+        this.content = content;
     }
 
     public Date getDatum() {
@@ -46,11 +49,16 @@ public class Tweet {
         this.postedFrom = vanaf;
     }
 
+    public String returnBullshit()
+    {
+        return content;
+    }
+
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tweet != null ? tweet.hashCode()+ postDate.hashCode() : 0);
+        hash += (content != null ? content.hashCode()+ postDate.hashCode() : 0);
         return hash;
     }
 
@@ -65,7 +73,7 @@ public class Tweet {
 
     @Override
     public String toString() {
-        return "twitter.domain.Tweet[id=" + postDate.toString() + "]";
+        return content;
     }
 
 }

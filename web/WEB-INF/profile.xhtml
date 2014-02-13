@@ -1,15 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
-<f:metadata>
-    <f:viewParam name="username" value="#{name}"/>
-</f:metadata>
-<f:view>
-    <h:outputLabel value="Hello, #{request.getParameter('username')}"/>
-</f:view>
-</html>
+
+    <ui:define name="content">
+        <h:panelGroup value="404" layout="block" rendered="#{profileBean.user eq null}">
+            <ui:include src="views/404.xhtml"/>
+        </h:panelGroup>
+
+        <h:panelGroup value="profile" layout="block" rendered="#{profileBean.user != null}">
+
+
+            <div class="dashboard">
+                <div class="pill">
+                    <div class="row text-center">
+                        <div class="avatarContainer">
+                            <img src="#{resource['images:avatarPlaceholder.jpeg']}" class="containedImage"/>
+                        </div>
+                        <div>
+                            <h:outputLabel value="@#{profileBean.user.name}"/>
+                        </div>
+                        <div>
+                            <h:outputLabel value="#{profileBean.user.web}"/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="pill">
+                    pill 2 contents
+                </div>
+            </div>
+
+            <div class="rightContent">
+                <h:form prependId="false">
+                    <div class="pill usertweets">
+
+                        <p:dataTable var="tweet" value="#{profileBean.tweets}">
+                            <ui:debug hotkey="x"/>
+                            <f:facet name="header">
+                                <p:outputLabel value="#{profileBean.user.name}'s Tweets"/>
+                            </f:facet>
+                            <p:column>
+                                <div>
+                                    <p:outputLabel value="#{tweet.content}"/>
+
+                                    <div class="small">
+                                        <h:outputText value="#{tweet.datum}"/>
+                                    </div>
+                                </div>
+                            </p:column>
+                        </p:dataTable>
+
+                    </div>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

@@ -10,7 +10,10 @@ body {
 .pill{
     background-color: #fff;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 6px;
+    border:0;
+    position: relative;
+    margin-bottom:10px;
 }
 
 .login-pill{
@@ -20,6 +23,20 @@ body {
     width: 600px;
     height: 300px;
     margin:-150px 0 0 -300px;
+}
+
+.avatarContainer {
+    height:100px;
+    width:100px;
+    padding:5px;
+    border-radius:3px;
+    background-color:#898A84;
+    margin:0 auto;
+}
+
+.containedImage {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
@@ -58,6 +75,18 @@ body {
     margin-top: 85px;
     margin-bottom: 30px;
 }
+
+.dashboard {
+    float:left;
+    width: 30%;
+}
+
+.rightContent{
+    float:right;
+    width:68%;
+}
+
+
 /* Custom page footer */
 .footer {
     padding-top: 19px;
