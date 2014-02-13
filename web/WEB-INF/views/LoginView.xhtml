@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <c:form id="loginForm" styleClass="form-horizontal">
+        <h4>Log in to Kwetter</h4>
+
+
+        <c:panelGroup layout="block" styleClass="alert alert-danger" rendered="#{authenticationBean.loginFailed}">
+            The username and/or password you entered is incorrect.
+        </c:panelGroup>
+
+        <div class="form-group">
+            <label for="txtUserName" class="col-sm-2 control-label">Username</label>
+
+            <div class="col-sm-10">
+                <p:inputText id="txtUserName" styleClass="form-control" value="#{authenticationBean.username}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="txtPassword" class="col-sm-2 control-label">Password</label>
+
+            <div class="col-sm-10">
+                <p:inputText id="txtPassword" styleClass="form-control" value="#{authenticationBean.password}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <c:commandButton value="Login" styleClass="btn btn-default" action="#{authenticationBean.AuthenticatePerson()}"/>
+            </div>
+        </div>
+
+    </c:form>
+</ui:composition>
