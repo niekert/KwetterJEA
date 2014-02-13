@@ -1,4 +1,4 @@
 KwetterJEA
 ==========
 
-School project. DO NOT LOOK
+School project. LEAVE.
