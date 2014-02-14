@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -33,8 +34,9 @@ public class SessionBean implements Serializable {
         this.authenticatedUser = authenticatedUser;
     }
 
+    public void logOut() throws IOException{
+        this.authenticatedUser = null;
 
-
-
-
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");
+    }
 }

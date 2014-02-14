@@ -16,6 +16,12 @@ body {
     margin-bottom:10px;
 }
 
+.main-logo {
+    cursor: pointer;
+    line-height: 30px;
+    font-size: 24px;
+}
+
 .login-pill{
     position:fixed;
     top:40%;
@@ -131,6 +137,12 @@ body {
 
 .labelMargin {
     margin-right:10px;
+    cursor:pointer;
+    color: #000;
+}
+
+.labelMargin:hover {
+    color: #696969;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -153,3 +165,6 @@ body {
         border-bottom: 0;
     }
 }
+
+
+/*Icons*/

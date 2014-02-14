@@ -1,13 +1,37 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <div class="container">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="/kwetter/login/">Login</a></li>
-        </ul>
 
-        <h3 class="text-muted">Kwetter!</h3>
+        <!--In case user is not authenticated-->
+        <h:panelGroup layout="block" id="notAuthenticatedHeader" rendered="#{sessionBean.authenticatedUser eq null}">
+            <ul class="nav nav-pills pull-right">
+                <li class="active"><a href="login/">Login</a></li>
+            </ul>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" id="authenticatedHeader" rendered="#{sessionBean.authenticatedUser != null}">
+            <!--TODO: Create nice menu-->
+            <h:form id="logoutForm">
+                <div class="pull-right">
+
+                    <p:tieredMenu>
+                        <p:submenu label="#{sessionBean.authenticatedUser.name}">
+                            <p:menuitem value="Logout" actionListener="#{sessionBean.logOut}"/>
+                            <p:menuitem value="Home" url="/"/>
+                            <p:menuitem value="View profile" url="profile/Niek"/>
+                        </p:submenu>
+                    </p:tieredMenu>
+                </div>
+            </h:form>
+
+
+        </h:panelGroup>
+
+
+        <a href="/kwetter/" class="text-muted main-logo">Kwetter!</a>
     </div>
 </ui:composition>

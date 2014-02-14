@@ -3,6 +3,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<base href="#{request.requestURL.substring(0, request.requestURL.length() - request.requestURI.length())}#{request.contextPath}/" />
 <h:head>
     <h:outputScript library="js" name="jquery-2.1.0.min.js"/>
     <h:outputStylesheet library="bootstrap" name="bootstrap.css"/>

@@ -5,8 +5,10 @@ import kwetter.service.KwetterService;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 
 /**
  * Created by Niek on 12/02/14.
@@ -50,6 +52,12 @@ public class AuthenticationBean {
         this.password = password;
     }
 
+    public void checkIfAlreadyAuthenticated() throws IOException{
+        if(sessionBean.getAuthenticatedUser() != null){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");
+        }
+    }
+
     public String AuthenticatePerson(){
         User authenticatedPerson = service.authenticateUser(this.getUsername(), this.getPassword());
 
@@ -61,7 +69,13 @@ public class AuthenticationBean {
         sessionBean.setAuthenticatedUser(authenticatedPerson);
 
         this.setLoginFailed(false);
-        return null;
 
+        //Redirect to main page
+        try {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

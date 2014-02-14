@@ -3,6 +3,7 @@ package kwetter.service;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import kwetter.dao.UserDAO;
 import kwetter.dao.UserDAOCollectionImpl;
 import kwetter.domain.Tweet;
@@ -28,13 +29,13 @@ public class KwetterService implements Serializable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public User authenticateUser(String username, String password){
-        if(username.isEmpty() || password.isEmpty()){
+    public User authenticateUser(String username, String password) {
+        if (username.isEmpty()) {
             return null;
         }
 
 
-        return userDAO.findAll().get(0);
+        return userDAO.find(username);
     }
 
     public void remove(User user) {
@@ -49,7 +50,7 @@ public class KwetterService implements Serializable {
         return userDAO.find(id);
     }
 
-    public User find(String name){
+    public User find(String name) {
         return userDAO.find(name);
     }
 
@@ -70,7 +71,6 @@ public class KwetterService implements Serializable {
         u4.addFollowing(u1);
 
 
-
         Tweet t1 = new Tweet("Watching TV OMG LOL #SoBoring", new Date(), "PC");
         Tweet t2 = new Tweet("New Flappy bird highscore #swag", new Date(), "PC");
         Tweet t3 = new Tweet("Niet", new Date(), "PC");
@@ -81,7 +81,13 @@ public class KwetterService implements Serializable {
         Tweet t8 = new Tweet("Nee", new Date(), "PC");
         Tweet t9 = new Tweet("Joooo", new Date(), "PC");
         Tweet t10 = new Tweet("Tweet", new Date(), "PC");
-        Tweet t11= new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t11 = new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t12 = new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t13 = new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t14 = new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t15 = new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t16 = new Tweet("Twitter is better", new Date(), "PC");
+        Tweet t17 = new Tweet("Twitter is better", new Date(), "PC");
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);
@@ -93,6 +99,12 @@ public class KwetterService implements Serializable {
         u1.addTweet(t9);
         u1.addTweet(t10);
         u1.addTweet(t11);
+        u2.addTweet(t12);
+        u2.addTweet(t13);
+        u2.addTweet(t14);
+        u2.addTweet(t15);
+        u2.addTweet(t16);
+        u2.addTweet(t17);
 
         userDAO.create(u1);
         userDAO.create(u2);
