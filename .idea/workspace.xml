@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="b4f9411a-2d37-434f-8d4f-a7ad7ade5b84" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/kwetter/utils/Utilities.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kwetter/service/KwetterService.java" afterPath="$PROJECT_DIR$/src/main/java/kwetter/service/KwetterService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kwetter/controller/ProfileBean.java" afterPath="$PROJECT_DIR$/src/main/java/kwetter/controller/ProfileBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kwetter/domain/Tweet.java" afterPath="$PROJECT_DIR$/src/main/java/kwetter/domain/Tweet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kwetter/domain/User.java" afterPath="$PROJECT_DIR$/src/main/java/kwetter/domain/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAO.java" afterPath="$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAOCollectionImpl.java" afterPath="$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAOCollectionImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web/index.xhtml" afterPath="$PROJECT_DIR$/web/login.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml" afterPath="$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/profile.xhtml" afterPath="$PROJECT_DIR$/web/WEB-INF/profile.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/resources/css/style.css" afterPath="$PROJECT_DIR$/web/resources/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.xhtml" afterPath="$PROJECT_DIR$/web/index.xhtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pretty-config.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/pretty-config.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="KwetterJEA.iws" />
@@ -76,25 +70,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ProfileBean.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/controller/ProfileBean.java">
+      <file leaf-file-name="pretty-config.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pretty-config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="5" selection-start="835" selection-end="835" vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="1050">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#745#746#0" expanded="true" />
-                <element signature="e#774#775#0" expanded="true" />
-                <element signature="e#807#808#0" expanded="true" />
-                <element signature="e#834#835#0" expanded="true" />
-              </folding>
+            <state line="11" column="30" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.xhtml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.xhtml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="0" selection-start="400" selection-end="400" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="315">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.xhtml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="0" selection-start="462" selection-end="462" vertical-scroll-proportion="0.1959799" vertical-offset="0" max-vertical-offset="995">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProfileBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/controller/ProfileBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="5" selection-start="835" selection-end="835" vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="1050">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.xhtml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/profile.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="62" selection-start="2578" selection-end="2578" vertical-scroll-proportion="0.5180723" vertical-offset="483" max-vertical-offset="1275">
+            <state line="63" column="18" selection-start="2936" selection-end="2936" vertical-scroll-proportion="-39.375" vertical-offset="0" max-vertical-offset="1275">
               <folding />
             </state>
           </provider>
@@ -103,7 +118,7 @@
       <file leaf-file-name="SessionBean.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/controller/SessionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="35" selection-start="527" selection-end="527" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+            <state line="22" column="35" selection-start="527" selection-end="527" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="690">
               <folding />
             </state>
           </provider>
@@ -112,18 +127,7 @@
       <file leaf-file-name="AuthenticationBean.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/controller/AuthenticationBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="31" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="footer.xhtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/includes/footer.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="195">
+            <state line="15" column="31" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1095">
               <folding />
             </state>
           </provider>
@@ -132,10 +136,8 @@
       <file leaf-file-name="UserDAO.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="25" selection-start="201" selection-end="201" vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="435">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="13" column="25" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="435">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -143,17 +145,10 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/resources/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="22" selection-start="2122" selection-end="2122" vertical-scroll-proportion="-16.346153" vertical-offset="1555" max-vertical-offset="2415">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginView.xhtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/LoginView.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="1466" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="660">
-              <folding />
+            <state line="132" column="22" selection-start="2122" selection-end="2122" vertical-scroll-proportion="0.0" vertical-offset="1555" max-vertical-offset="2415">
+              <folding>
+                <marker date="1392365029000" expanded="true" signature="2098:2124" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,21 +156,8 @@
       <file leaf-file-name="UserDAOCollectionImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAOCollectionImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.0" vertical-offset="449" max-vertical-offset="1275">
-              <folding>
-                <element signature="e#1359#1365#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KwetterService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/service/KwetterService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="0" selection-start="2795" selection-end="2795" vertical-scroll-proportion="0.0" vertical-offset="809" max-vertical-offset="1635">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="82" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.0" vertical-offset="1230" max-vertical-offset="1350">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -206,17 +188,13 @@
         <option value="$PROJECT_DIR$/src/main/java/kwetter/controller/SessionBean.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/LoginView.xhtml" />
         <option value="$PROJECT_DIR$/web/profile.xhtml" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/pretty-config.xml" />
-        <option value="$PROJECT_DIR$/web/index.xhtml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/404.xhtml" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/controller/TableBean.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/controller/AuthenticationBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/utils/TimeUtility.java" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/utils/Utilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/domain/Tweet.java" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/domain/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/controller/ProfileBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAO.java" />
@@ -224,6 +202,10 @@
         <option value="$PROJECT_DIR$/src/main/java/kwetter/service/KwetterService.java" />
         <option value="$PROJECT_DIR$/web/resources/css/style.css" />
         <option value="$PROJECT_DIR$/web/WEB-INF/profile.xhtml" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/pretty-config.xml" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/web/index.xhtml" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml" />
       </list>
     </option>
   </component>
@@ -322,28 +304,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KwetterJEA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KwetterJEA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -891,6 +851,14 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="RemoteFlashRunConfigurationType" factoryName="Flash Remote Debug">
+      <option name="BCName" value="" />
+      <option name="debugTransport" value="USB" />
+      <option name="moduleName" value="" />
+      <option name="remoteDebugTarget" value="Computer" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -904,14 +872,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="RemoteFlashRunConfigurationType" factoryName="Flash Remote Debug">
-      <option name="BCName" value="" />
-      <option name="debugTransport" value="USB" />
-      <option name="moduleName" value="" />
-      <option name="remoteDebugTarget" value="Computer" />
-      <option name="usbDebugPort" value="7936" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1051,21 +1011,26 @@
       <workItem from="1392194540649" duration="5644000" />
       <workItem from="1392211238285" duration="10366000" />
       <workItem from="1392284157677" duration="528000" />
-      <workItem from="1392310430378" duration="15147000" />
+      <workItem from="1392310430378" duration="15204000" />
+      <workItem from="1392380149782" duration="1491000" />
     </task>
     <task id="LOCAL-00001" summary="Profile page&#10;">
       <created>1392330213551</created>
       <updated>1392330213551</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Profile page&#10;">
+      <created>1392366473925</created>
+      <updated>1392366473925</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36109000" />
+    <option name="totallyTimeSpent" value="38390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1514" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1081,12 +1046,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2585385" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2637131" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2637131" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3994374" sideWeight="0.57307386" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6698962" sideWeight="0.57307386" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1123,23 +1088,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/service/KwetterService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="37" selection-start="1142" selection-end="1142" vertical-scroll-proportion="0.0" vertical-offset="705" max-vertical-offset="1065">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/domain/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="0" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="1635">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#488#494#0" expanded="true" />
-            <element signature="e#1357#1358#0" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#488#494#0" expanded="false" />
+            <element signature="e#1357#1358#0" expanded="false" />
+            <element signature="e#1389#1390#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1147,7 +1103,9 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/domain/Tweet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="1155">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1177,7 +1135,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.xhtml">
+    <entry file="file://$PROJECT_DIR$/web/login.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="0" selection-start="415" selection-end="415" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="255">
           <folding />
@@ -1222,7 +1180,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.xhtml">
+    <entry file="file://$PROJECT_DIR$/web/login.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="0" selection-start="415" selection-end="415" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="255">
           <folding />
@@ -1265,9 +1223,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/utils/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="45" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <folding />
-        </state>
+        <state line="8" column="45" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/KwetterJEA.iml">
@@ -1275,53 +1231,34 @@
         <state line="8" column="0" selection-start="385" selection-end="385" vertical-scroll-proportion="0.14527845" vertical-offset="0" max-vertical-offset="826" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pretty-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="35" selection-start="438" selection-end="438" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/ocpsoft/rewrite/rewrite-servlet/2.0.10.Final/rewrite-servlet-2.0.10.Final.jar!/org/ocpsoft/rewrite/util/CompositeMap.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="68" selection-start="426" selection-end="426" vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="645">
-          <folding />
-        </state>
+        <state line="11" column="68" selection-start="426" selection-end="426" vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="645" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/16.0.1/guava-16.0.1.jar!/com/google/common/base/Equivalence.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="31" selection-start="447" selection-end="447" vertical-scroll-proportion="-6.6" vertical-offset="0" max-vertical-offset="1455">
-          <folding />
-        </state>
+        <state line="12" column="31" selection-start="447" selection-end="447" vertical-scroll-proportion="-6.6" vertical-offset="0" max-vertical-offset="1455" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/16.0.1/guava-16.0.1.jar!/com/google/common/collect/Iterators.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="73" selection-start="567" selection-end="567" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="2580">
-          <folding />
-        </state>
+        <state line="13" column="73" selection-start="567" selection-end="567" vertical-scroll-proportion="-7.2" vertical-offset="0" max-vertical-offset="2580" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/16.0.1/guava-16.0.1.jar!/com/google/common/collect/MapMakerInternalMap.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="452" column="16" selection-start="23478" selection-end="23478" vertical-scroll-proportion="-10.48" vertical-offset="6503" max-vertical-offset="15360">
-          <folding />
-        </state>
+        <state line="452" column="16" selection-start="23478" selection-end="23478" vertical-scroll-proportion="-10.48" vertical-offset="6503" max-vertical-offset="15360" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/16.0.1/guava-16.0.1.jar!/com/google/common/collect/ComputingConcurrentHashMap.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1575">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1575" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/ocpsoft/rewrite/rewrite-servlet/2.0.10.Final/rewrite-servlet-2.0.10.Final.jar!/org/ocpsoft/rewrite/servlet/RewriteFilter.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="16" selection-start="1341" selection-end="1341" vertical-scroll-proportion="-11.4" vertical-offset="0" max-vertical-offset="480">
-          <folding />
-        </state>
+        <state line="20" column="16" selection-start="1341" selection-end="1341" vertical-scroll-proportion="-11.4" vertical-offset="0" max-vertical-offset="480" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -1333,41 +1270,12 @@
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/ocpsoft/rewrite/rewrite-servlet/2.0.10.Final/rewrite-servlet-2.0.10.Final.jar!/org/ocpsoft/rewrite/servlet/impl/HttpRewriteWrappedRequest.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="28" selection-start="988" selection-end="988" vertical-scroll-proportion="-10.2" vertical-offset="0" max-vertical-offset="450">
-          <folding />
-        </state>
+        <state line="18" column="28" selection-start="988" selection-end="988" vertical-scroll-proportion="-10.2" vertical-offset="0" max-vertical-offset="450" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/404.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="17" selection-start="532" selection-end="532" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="300">
-          <folding>
-            <marker date="1392321596000" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1392321596000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/faces-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="898">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.jsf.yfilesGraph.editor.FacesNavigationFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="882" selection-end="882" vertical-scroll-proportion="0.35328755" vertical-offset="0" max-vertical-offset="1019">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="18" selection-start="783" selection-end="783" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="495">
           <folding />
         </state>
       </provider>
@@ -1375,13 +1283,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/utils/Utilities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="25" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="48" selection-start="349" selection-end="349" vertical-scroll-proportion="0.10552764" vertical-offset="0" max-vertical-offset="995">
           <folding />
         </state>
       </provider>
@@ -1395,7 +1296,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/includes/footer.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="195">
+        <state line="7" column="0" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="195">
           <folding />
         </state>
       </provider>
@@ -1404,7 +1305,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="19" selection-start="638" selection-end="641" vertical-scroll-proportion="-11.538462" vertical-offset="135" max-vertical-offset="1170">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1426,31 +1327,21 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/controller/AuthenticationBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="31" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/controller/ProfileBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="5" selection-start="835" selection-end="835" vertical-scroll-proportion="0.0" vertical-offset="124" max-vertical-offset="1050">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#745#746#0" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-            <element signature="e#834#835#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="25" selection-start="201" selection-end="201" vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="435">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="13" column="25" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="435">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,10 +1349,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="126" column="0" selection-start="2293" selection-end="2293" vertical-scroll-proportion="0.0" vertical-offset="809" max-vertical-offset="1635">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#488#494#0" expanded="true" />
-            <element signature="e#1357#1358#0" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#488#494#0" expanded="false" />
+            <element signature="e#1357#1358#0" expanded="false" />
+            <element signature="e#1389#1390#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1469,31 +1360,74 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/dao/UserDAOCollectionImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="82" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.0" vertical-offset="449" max-vertical-offset="1275">
-          <folding>
-            <element signature="e#1359#1365#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kwetter/service/KwetterService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="101" column="0" selection-start="2795" selection-end="2795" vertical-scroll-proportion="0.0" vertical-offset="809" max-vertical-offset="1635">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/resources/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="22" selection-start="2122" selection-end="2122" vertical-scroll-proportion="-16.346153" vertical-offset="1555" max-vertical-offset="2415">
-          <folding />
+        <state line="132" column="22" selection-start="2122" selection-end="2122" vertical-scroll-proportion="0.0" vertical-offset="1555" max-vertical-offset="2415">
+          <folding>
+            <marker date="1392365029000" expanded="true" signature="2098:2124" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/profile.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="62" selection-start="2578" selection-end="2578" vertical-scroll-proportion="0.5180723" vertical-offset="483" max-vertical-offset="1275">
+        <state line="63" column="18" selection-start="2936" selection-end="2936" vertical-scroll-proportion="-39.375" vertical-offset="0" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/faces-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="898">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.jsf.yfilesGraph.editor.FacesNavigationFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pretty-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="30" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="33" selection-start="694" selection-end="694" vertical-scroll-proportion="0.25024533" vertical-offset="0" max-vertical-offset="1019">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/login.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="846" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="0" selection-start="400" selection-end="400" vertical-scroll-proportion="-9.375" vertical-offset="0" max-vertical-offset="315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/includes/header.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="462" selection-end="462" vertical-scroll-proportion="0.1959799" vertical-offset="0" max-vertical-offset="995">
           <folding />
         </state>
       </provider>

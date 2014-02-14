@@ -8,9 +8,8 @@
         <pattern value="/profile/#{username}"></pattern>
         <view-id value="../WEB-INF/profile.xhtml"/>
     </url-mapping>
-
     <url-mapping>
-        <pattern value="/TestMap"/>
-        <view-id value="index.xhtml"/>
+        <pattern value="/login/"></pattern>
+        <view-id value="../login.xhtml"/>
     </url-mapping>
 </pretty-config>
