@@ -15,91 +15,121 @@ public class User implements Serializable
     private String web;
     private String bio;
 
-    private Collection<User> following = new ArrayList();
+    private List<User> following = new ArrayList();
     private List<Tweet> tweets = new ArrayList();
+    private List<User> followers = new ArrayList<User>();
 
-    public User() {
+    public User()
+    {
     }
 
-    public User(String naam) {
+    public User(String naam)
+    {
         this.name = naam;
     }
 
-    public User(String naam, String web, String bio) {
+    public User(String naam, String web, String bio)
+    {
         this.name = naam;
         this.web = web;
         this.bio = bio;
     }
 
-    public String getBio() {
+    public List<User> getFollowers()
+    {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers)
+    {
+        this.followers = followers;
+    }
+
+    public String getBio()
+    {
         return bio;
     }
 
-    public void setBio(String bio) {
+    public void setBio(String bio)
+    {
         this.bio = bio;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getWeb() {
+    public String getWeb()
+    {
         return web;
     }
 
-    public void setWeb(String web) {
+    public void setWeb(String web)
+    {
         this.web = web;
     }
 
-    public Collection<User> getFollowing() {
-        return Collections.unmodifiableCollection(following);
+    public List<User> getFollowing()
+    {
+        return following;
     }
 
-    public void setFollowing(Collection<User> following) {
+    public void setFollowing(List<User> following)
+    {
         this.following = following;
     }
 
-    public List<Tweet> getTweets() {
+    public List<Tweet> getTweets()
+    {
         return tweets;
     }
 
-    public void setTweets(List<Tweet> tweets) {
+    public void setTweets(List<Tweet> tweets)
+    {
         this.tweets = tweets;
     }
 
 
-    public Boolean addFollowing(User following){
+    public Boolean addFollowing(User following)
+    {
         return this.following.add(following);
     }
 
-  
-    public Boolean addTweet(Tweet tweet){
+
+    public Boolean addTweet(Tweet tweet)
+    {
         return this.tweets.add(tweet);
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 0;
         hash += (name != null ? name.hashCode() + bio.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object)
+    {
         // TODO: Warning - this method won't work in the case the name fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof User))
+        {
             return false;
         }
         User other = (User) object;
-        return this.hashCode()==other.hashCode();
+        return this.hashCode() == other.hashCode();
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "twitter.domain.User[naam=" + name + "]";
     }
 

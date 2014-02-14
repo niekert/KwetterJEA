@@ -13,6 +13,8 @@ public interface UserDAO {
 
     List<User> findAll();
 
+    void setFollowers(User user);
+
     User find(Long id);
 
     User find(String name);

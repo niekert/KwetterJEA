@@ -32,7 +32,7 @@ public class ProfileBean implements Serializable
     private User user;
     private List<Tweet> tweets = new ArrayList();
 
-    public Collection<Tweet> getTweets()
+    public List<Tweet> getTweets()
     {
         return tweets;
     }
@@ -48,13 +48,16 @@ public class ProfileBean implements Serializable
         FacesContext context = FacesContext.getCurrentInstance();
 
         String requestedUserName = context.getExternalContext().getRequestParameterMap().get("username");
-        if(requestedUserName.isEmpty()){
+        if (requestedUserName.isEmpty())
+        {
             user = userSession.getAuthenticatedUser();
-        } else {
+        } else
+        {
             user = service.find(requestedUserName);
         }
 
-        if(user != null){
+        if (user != null)
+        {
             tweets = user.getTweets();
         }
     }

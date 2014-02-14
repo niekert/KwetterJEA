@@ -3,7 +3,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 
     <ui:define name="content">
@@ -29,8 +30,24 @@
                     </div>
 
                 </div>
-                <div class="pill">
-                    pill 2 contents
+                <div class="pill" id="profileInfo">
+                    <div class="userinfo">
+                        <p:outputLabel styleClass="labelMargin"
+                                       value="#{fn:length(profileBean.user.following)} Following"/>
+                        <p:outputLabel styleClass="labelMargin"
+                                       value="#{fn:length(profileBean.user.followers)} Followers"/>
+                    </div>
+                    <div class="tweetInfo">
+                        <p:outputLabel styleClass="labelMargin"
+                                       value="#{fn:length(profileBean.user.tweets)} Tweets"/>
+                    </div>
+                </div>
+                <div class="pill" id="followings">
+                    <p:dataGrid var="following" value="#{profileBean.user.following}">
+
+                       <h:outputText value="#{following.name}"/>
+
+                    </p:dataGrid>
                 </div>
             </div>
 
@@ -38,8 +55,9 @@
                 <h:form prependId="false">
                     <div class="pill usertweets">
 
-                        <p:dataTable var="tweet" value="#{profileBean.tweets}">
-                            <ui:debug hotkey="x"/>
+                        <p:dataTable var="tweet" value="#{profileBean.tweets}"
+                                     paginator="true" rows="30"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                             <f:facet name="header">
                                 <p:outputLabel value="#{profileBean.user.name}'s Tweets"/>
                             </f:facet>
@@ -48,7 +66,7 @@
                                     <p:outputLabel value="#{tweet.content}"/>
 
                                     <div class="small">
-                                        <h:outputText value="#{tweet.datum}"/>
+                                        <h:outputText value="#{tweet.friendlyDateFormat}"/>
                                     </div>
                                 </div>
                             </p:column>

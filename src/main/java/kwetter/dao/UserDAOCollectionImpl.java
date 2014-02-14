@@ -59,12 +59,26 @@ public class UserDAOCollectionImpl implements UserDAO
         User foundUser = null;
         for (User user : users)
         {
-            if(user.getName().equals(name)){
+            if (user.getName().equals(name))
+            {
                 foundUser = user;
                 break;
             }
         }
 
         return foundUser;
+    }
+
+    @Override
+    public void setFollowers(User userToAdd){
+        List<User> followers = new ArrayList<User>();
+        for (User user : users)
+        {
+            if(user.getFollowing().contains(userToAdd)){
+                followers.add(user);
+            }
+        }
+
+        userToAdd.setFollowers(followers);
     }
 }

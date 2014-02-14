@@ -1,5 +1,7 @@
 package kwetter.domain;
 
+import kwetter.utils.Utilities;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -52,6 +54,11 @@ public class Tweet implements Serializable{
     public String returnBullshit()
     {
         return content;
+    }
+
+    public String getFriendlyDateFormat()
+    {
+        return Utilities.getTimeAgo(this.postDate.getTime());
     }
 
 

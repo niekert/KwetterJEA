@@ -65,18 +65,40 @@ public class KwetterService implements Serializable {
         u1.addFollowing(u2);
         u1.addFollowing(u3);
         u1.addFollowing(u4);
+        u2.addFollowing(u1);
+        u3.addFollowing(u1);
+        u4.addFollowing(u1);
+
+
 
         Tweet t1 = new Tweet("Watching TV OMG LOL #SoBoring", new Date(), "PC");
         Tweet t2 = new Tweet("New Flappy bird highscore #swag", new Date(), "PC");
-        Tweet t3 = new Tweet("Sittin' on a toilet", new Date(), "PC");
+        Tweet t3 = new Tweet("Niet", new Date(), "PC");
+        Tweet t4 = new Tweet("Sittin' on a toilet", new Date(), "PC");
+        Tweet t5 = new Tweet("Sittin' on a toilet", new Date(), "PC");
+        Tweet t6 = new Tweet("Sittin' on a toilet", new Date(), "PC");
+        Tweet t7 = new Tweet("Jawel", new Date(), "PC");
+        Tweet t8 = new Tweet("Nee", new Date(), "PC");
+        Tweet t9 = new Tweet("Joooo", new Date(), "PC");
+        Tweet t10 = new Tweet("Tweet", new Date(), "PC");
+        Tweet t11= new Tweet("Twitter is better", new Date(), "PC");
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);
-
+        u1.addTweet(t4);
+        u1.addTweet(t5);
+        u1.addTweet(t6);
+        u1.addTweet(t7);
+        u1.addTweet(t8);
+        u1.addTweet(t9);
+        u1.addTweet(t10);
+        u1.addTweet(t11);
 
         userDAO.create(u1);
         userDAO.create(u2);
         userDAO.create(u3);
         userDAO.create(u4);
+
+        userDAO.setFollowers(u1);
     }
 }
