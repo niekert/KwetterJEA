@@ -87,7 +87,8 @@ public class User implements Serializable
 
     public List<Tweet> getTweets()
     {
-        return tweets;
+        List<Tweet> sortedTweets = this.tweets; Collections.sort(sortedTweets);
+        return sortedTweets;
     }
 
     public void setTweets(List<Tweet> tweets)

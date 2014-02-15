@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +31,9 @@ public class HomeBean {
     private User homeUser;
     private String searchText = "";
     private String newTweetContents;
-    private List<Tweet> timeline;
-
 
     public List<Tweet> getTimeline() {
-        return timeline;
+        return service.getTimeline(homeUser);
     }
 
     public String getSearchText() {
@@ -63,13 +62,17 @@ public class HomeBean {
     }
 
     public Tweet getLatestTweet() {
-        return homeUser.getTweets().get(homeUser.getTweets().size() -1);
+        return homeUser.getTweets().get(0);
     }
 
     public void postNewTweet(){
 
-        this.homeUser.addTweet(new Tweet(newTweetContents, new Date(), "PC"));
+        this.homeUser.addTweet(new Tweet(session.getAuthenticatedUser(), newTweetContents, new Date(), "PC"));
         newTweetContents = "";
+    }
+
+    public List<Tweet> getMentions(){
+        return service.getMentions(homeUser);
     }
 
 }

@@ -59,7 +59,7 @@ public class UserDAOCollectionImpl implements UserDAO
         User foundUser = null;
         for (User user : users)
         {
-            if (user.getName().equals(name))
+            if (user.getName().toLowerCase().equals(name.toLowerCase()))
             {
                 foundUser = user;
                 break;

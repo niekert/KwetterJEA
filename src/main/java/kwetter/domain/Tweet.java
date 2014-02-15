@@ -3,27 +3,32 @@ package kwetter.domain;
 import kwetter.utils.Utilities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-public class Tweet implements Serializable{
+public class Tweet implements Serializable, Comparable<Tweet>{
     private static final long serialVersionUID = 2L;
     private String content;
     private Date postDate;
     private String postedFrom;
+    private List<User> mentions = new ArrayList<User>();
+    private User user;
 
     public Tweet() {
     }
 
-    public Tweet(String tweet) {
-        this.content = tweet;
-    }
-
-    public Tweet(String tweet, Date datum, String vanaf) {
+    public Tweet(User user, String tweet, Date datum, String vanaf) {
         this.content = tweet;
         this.postDate = datum;
         this.postedFrom = vanaf;
+        this.user = user;
+
+        user.addTweet(this);
     }
+
+    public List<User> getMentions() { return mentions; }
 
     public String getContent()
     {
@@ -83,4 +88,12 @@ public class Tweet implements Serializable{
         return content;
     }
 
+    @Override
+    public int compareTo(Tweet tweet)
+    {
+
+        if(this == tweet) return 0;
+
+        return tweet.getDatum().compareTo(this.getDatum());
+    }
 }

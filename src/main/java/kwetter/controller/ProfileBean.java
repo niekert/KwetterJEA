@@ -42,7 +42,7 @@ public class ProfileBean implements Serializable {
     }
 
     public List<Tweet> getTweets() {
-        return Lists.reverse(tweets);
+        return tweets;
     }
 
     public User getUser() {
