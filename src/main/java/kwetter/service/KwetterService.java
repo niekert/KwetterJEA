@@ -64,11 +64,10 @@ public class KwetterService implements Serializable {
         User u3 = new User("Tom", "httpT", "geboren 3");
         User u4 = new User("Hans", "httpS", "geboren 4");
         u1.addFollowing(u2);
-        u1.addFollowing(u3);
-        u1.addFollowing(u4);
         u2.addFollowing(u1);
         u3.addFollowing(u1);
         u4.addFollowing(u1);
+        u2.addFollowing(u3);
 
 
         Tweet t1 = new Tweet("Watching TV OMG LOL #SoBoring", new Date(), "PC");
@@ -88,6 +87,12 @@ public class KwetterService implements Serializable {
         Tweet t15 = new Tweet("Twitter is better", new Date(), "PC");
         Tweet t16 = new Tweet("Twitter is better", new Date(), "PC");
         Tweet t17 = new Tweet("Twitter is better", new Date(), "PC");
+
+        userDAO.create(u1);
+        userDAO.create(u2);
+        userDAO.create(u3);
+        userDAO.create(u4);
+
         u1.addTweet(t1);
         u1.addTweet(t2);
         u1.addTweet(t3);
@@ -106,11 +111,5 @@ public class KwetterService implements Serializable {
         u2.addTweet(t16);
         u2.addTweet(t17);
 
-        userDAO.create(u1);
-        userDAO.create(u2);
-        userDAO.create(u3);
-        userDAO.create(u4);
-
-        userDAO.setFollowers(u1);
     }
 }

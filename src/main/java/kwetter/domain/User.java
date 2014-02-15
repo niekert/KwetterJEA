@@ -98,6 +98,7 @@ public class User implements Serializable
 
     public Boolean addFollowing(User following)
     {
+        following.followers.add(this);
         return this.following.add(following);
     }
 
