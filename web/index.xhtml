@@ -11,16 +11,20 @@
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{homeBean.validateLogin}"/>
 
-        <h:form id="form">
-            <!--Render the content when the user is authenticated-->
-            <h:panelGroup layout="block" id="contentProfile" rendered="#{sessionBean.authenticatedUser != null}">
+        <!--Render the content when the user is authenticated-->
+        <h:panelGroup layout="block" id="contentProfile" rendered="#{sessionBean.authenticatedUser != null}">
+            <h:form id="search">
                 <div class="pill searchbar">
                     <div class="fullSearch">
                         <p:inputText id="txtSearch" placeholder="Search tweets" styleClass="searchbar"
                                      value="#{homeBean.searchText}"/>
-                        <p:commandButton styleClass="searchIcon" value=""/>
+                        <p:commandButton styleClass="searchIcon" value="" action="#{homeBean.searchTweets()}"
+                                         update=":contentProfile"/>
                     </div>
                 </div>
+            </h:form>
+
+            <h:form id="mainform">
 
                 <h:panelGroup id="contentContainer" layout="block">
                     <div class="dashboard">
@@ -55,7 +59,10 @@
                         </div>
 
                         <div class="pill trends">
-                            <!--Load trends-->
+                            <label>Current trends</label>
+                            <p:tagCloud model="#{homeBean.model}" style="width:100%">
+                                <p:ajax event="select" update=":contentProfile" listener="#{homeBean.searchTag}"/>
+                            </p:tagCloud>
                         </div>
                     </div>
 
@@ -66,9 +73,7 @@
                             <div class="fullSearch">
                                 <label>Post a new Tweet</label>
                                 <p:inputText id="txtPostNew"
-                                             required="true"
                                              autocomplete="false"
-                                             requiredMessage="You can't post an empty tweet"
                                              placeholder="What's happening?" styleClass="newTweet"
                                              validatorMessage="A maximumum of only 140 characters is allowed."
                                              value="#{homeBean.newTweetContents}">
@@ -80,45 +85,43 @@
                                 <div style="margin-top:3px">
                                     <p:commandButton id="btnSend" value="Submit" validateClient="true"
                                                      actionListener="#{homeBean.postNewTweet}"
-                                                     update="contentProfile"/>
+                                                     update="contentContainer"/>
                                 </div>
                             </div>
                         </div>
 
                         <!--Load tweets pill-->
-                        <div class="pill loadTweets">
-                            <p:tabView id="tabView">
+                        <div class="pill loadTweets" id="tweetsContainer">
+                            <p:tabView id="tabView" activeIndex="#{homeBean.tabIndex}">
                                 <p:tab id="tab1" title="Timeline">
-                                    <p:dataTable var="tweet" value="#{homeBean.timeline}"
-                                                 paginator="true" rows="30"
-                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                                 emptyMessage="There's nothing on your timeline">
-                                        <f:facet name="header">
-                                            <p:outputLabel value="#{sessionBean.authenticatedUser.name}'s Timeline"/>
-                                        </f:facet>
-                                        <p:column>
-                                            <div>
-                                                <p:outputLabel value="#{tweet.content}"/>
-
-                                                <div class="small">
-                                                    <h:outputText value="#{tweet.friendlyDateFormat} from #{tweet.vanaf}"/>
-                                                </div>
-                                            </div>
-                                        </p:column>
-                                    </p:dataTable>
+                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                        <ui:param name="datasource" value="#{homeBean.timeline}"/>
+                                        <ui:param name="header" value="Your personal timeline"/>
+                                        <ui:param name="emptyText" value="There's nothing on your timeline."/>
+                                    </ui:include>
                                 </p:tab>
 
                                 <p:tab id="mentions" title="@Mentions">
-                                    your mentions!
+                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                        <ui:param name="datasource" value="#{homeBean.mentions}"/>
+                                        <ui:param name="header" value="Your mentions"/>
+                                        <ui:param name="emptyText" value="Nobody mentioned you! (HAHAH!)"/>
+                                    </ui:include>
+                                </p:tab>
+
+                                <p:tab id="searchResults" title="Search results" disabled="#{homeBean.searchResults eq false}">
+                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                        <ui:param name="datasource" value="#{homeBean.filteredTweets}"/>
+                                        <ui:param name="header" value="Search Results for #{homeBean.searchText}"/>
+                                        <ui:param name="emptyText" value="No tweets found."/>
+                                    </ui:include>
                                 </p:tab>
                             </p:tabView>
                         </div>
                     </div>
-
-
                 </h:panelGroup>
-            </h:panelGroup>
-        </h:form>
+            </h:form>
+        </h:panelGroup>
     </ui:define>
 
 

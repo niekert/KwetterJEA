@@ -28,6 +28,11 @@ public class Tweet implements Serializable, Comparable<Tweet>{
         user.addTweet(this);
     }
 
+
+    public User getUser() {
+        return user;
+    }
+
     public List<User> getMentions() { return mentions; }
 
     public String getContent()

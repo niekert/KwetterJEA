@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable var="tweet" value="#{datasource}"
+                 paginator="true" rows="15"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                 emptyMessage="There's nothing on your timeline">
+        <f:facet name="header">
+            <p:outputLabel
+                    value="#{header}"/>
+        </f:facet>
+        <p:column>
+            <div>
+                <h:outputLink styleClass="profileLink"
+                              value="profile/#{tweet.user.name}">@#{tweet.user.name}</h:outputLink>
+
+                <p class="tweetContent">
+                    <h:outputText value="#{tweet.content}"/>
+                </p>
+
+                <div class="small">
+                    <h:outputText
+                            value="#{tweet.friendlyDateFormat} from #{tweet.vanaf}"/>
+                </div>
+            </div>
+        </p:column>
+    </p:dataTable>
+</ui:composition>

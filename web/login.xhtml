@@ -11,7 +11,9 @@
             <div class="pill login-pill" id="loginPill">
 
                     <ui:insert name="login">
-                        <ui:include src="WEB-INF/views/LoginView.xhtml"/>
+                        <ui:include src="WEB-INF/views/LoginView.xhtml">
+                            <ui:param name="id" value="main"/>
+                        </ui:include>
                     </ui:insert>
             </div>
 

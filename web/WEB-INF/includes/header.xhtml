@@ -8,9 +8,27 @@
 
         <!--In case user is not authenticated-->
         <h:panelGroup layout="block" id="notAuthenticatedHeader" rendered="#{sessionBean.authenticatedUser eq null}">
-            <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="login/">Login</a></li>
-            </ul>
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+                Login
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <ui:include src="../views/LoginView.xhtml">
+                                <ui:param name="id" value="modal"/>
+                            </ui:include>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            <ul class="nav nav-pills pull-right">
+                            <li class="active"><a href="login/">Login</a></li>
+                        </ul>-->
         </h:panelGroup>
 
         <h:panelGroup layout="block" id="authenticatedHeader" rendered="#{sessionBean.authenticatedUser != null}">
@@ -22,7 +40,7 @@
                         <p:submenu label="#{sessionBean.authenticatedUser.name}">
                             <p:menuitem value="Logout" actionListener="#{sessionBean.logOut}"/>
                             <p:menuitem value="Home" url="/"/>
-                            <p:menuitem value="View profile" url="profile/Niek"/>
+                            <p:menuitem value="View profile" url="profile/#{sessionBean.authenticatedUser.name}"/>
                         </p:submenu>
                     </p:tieredMenu>
                 </div>

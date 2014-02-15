@@ -58,7 +58,7 @@ body {
 .header {
     background-color: #fff;
     border-bottom: 1px solid #e5e5e5;
-    position:fixed;
+    position:absolute;
     left:0;
     right:0;
 }
@@ -192,7 +192,13 @@ body {
     padding: 10px;
 }
 
-.tweetContainer .small {
+.profileLink{
+    display:block;
+    color: #000;
+    font-weight:bold;
+}
+
+.small {
     font-style:italic;
 }
 

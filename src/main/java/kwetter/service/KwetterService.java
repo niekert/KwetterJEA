@@ -1,10 +1,7 @@
 package kwetter.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import kwetter.dao.TweetDAO;
 import kwetter.dao.TweetDAOCollectionImpl;
@@ -67,11 +64,15 @@ public class KwetterService implements Serializable {
         return userDAO.count();
     }
 
+    public Map<String, Integer> getCurrentTrends(){
+        return tweetDao.getCurrentTrends();
+    }
+
     public List<Tweet> getTimeline(User user){
         List<Tweet> timelineTweets = new ArrayList<Tweet>();
         for (User existingUser : userDAO.findAll())
         {
-            if(user.getFollowing().contains(existingUser)){
+            if(user.getFollowing().contains(existingUser) || user.equals(existingUser)){
                 for (Tweet tweet : existingUser.getTweets())
                 {
                     timelineTweets.add(tweet);
@@ -87,6 +88,10 @@ public class KwetterService implements Serializable {
 
     public List<Tweet> getMentions(User user){
         return tweetDao.findMentions(user);
+    }
+
+    public void postNewTweet(Tweet tweet){
+        tweetDao.create(tweet);
     }
 
     private void initUsers() {
@@ -106,8 +111,8 @@ public class KwetterService implements Serializable {
         userDAO.create(u3);
         userDAO.create(u4);
 
-        Tweet t1 = new Tweet(u1, "Watching TV OMG LOL #SoBoring @Niek @Swek @niek", new Date(), "PC");
-        Tweet t2 = new Tweet(u1, "New Flappy bird highscore #swag #TAGGGGGGG", new Date(), "PC");
+        Tweet t1 = new Tweet(u1, "Tweet Twoot #Kwetter @Niek @Hans", new Date(), "PC");
+        Tweet t2 = new Tweet(u1, "New Flappy bird highscore #HashTag #Highscore", new Date(), "PC");
         Tweet t3 = new Tweet(u1, "Niet", new Date(), "PC");
         Tweet t4 = new Tweet(u1, "Sittin' on a toilet", new Date(), "PC");
         Tweet t5 = new Tweet(u1,"Sittin' on a toilet", new Date(), "PC");
@@ -118,8 +123,8 @@ public class KwetterService implements Serializable {
         Tweet t10 = new Tweet(u3, "Tweet", new Date(), "PC");
         Tweet t11 = new Tweet(u4, "Twitter is better", new Date(), "PC");
         Tweet t12 = new Tweet(u1,"Twitter is better", new Date(), "PC");
-        Tweet t13 = new Tweet(u2,"Twitter is better", new Date(), "PC");
-        Tweet t14 = new Tweet(u3,"Twitter is better", new Date(), "PC");
+        Tweet t13 = new Tweet(u2,"Twitter is better than #Kwetter", new Date(), "PC");
+        Tweet t14 = new Tweet(u3,"Twitter is better than #Kwetter", new Date(), "PC");
         Tweet t15 = new Tweet(u3,"Twitter is better", new Date(), "PC");
         Tweet t16 = new Tweet(u3,"Twitter is better", new Date(), "PC");
         Tweet t17 = new Tweet(u4, "Twitter is better", new Date(), "PC");

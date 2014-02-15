@@ -1,15 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
-<f:metadata>
-    <f:viewParam name="username" value="#{name}"/>
-</f:metadata>
-<f:view>
-    <h:outputLabel value="Hello, #{request.getParameter('username')}"/>
-</f:view>
-</html>
+
+    <ui:define name="content">
+        <h:panelGroup value="404" layout="block" rendered="#{profileBean.user eq null}">
+            <ui:include src="views/404.xhtml"/>
+        </h:panelGroup>
+
+        <h:panelGroup value="profile" layout="block" rendered="#{profileBean.user != null}">
+            <h:form>
+                <div class="dashboard">
+                    <div class="pill">
+                        <div class="row text-center">
+                            <div class="avatarContainer">
+                                <img src="#{resource['images:avatarPlaceholder.jpeg']}" class="containedImage"/>
+                            </div>
+                            <div>
+                                <h:outputLabel value="@#{profileBean.user.name}"/>
+                            </div>
+                            <div>
+                                <h:outputLabel value="#{profileBean.user.web}"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="pill" id="profileInfo">
+                        <div class="userinfo">
+
+                            <!--Show following link-->
+                            <p:commandLink id="showFollowing" update="contentPanel"
+                                           actionListener="#{profileBean.showFollowing}">
+                                <h:outputLabel styleClass="labelMargin"
+                                               value="#{fn:length(profileBean.user.following)} Following"/>
+                            </p:commandLink>
+
+
+                            <!--Show follower link-->
+                            <p:commandLink id="showFollowers" update="contentPanel"
+                                           action="#{profileBean.showFollowers}">
+                                <p:outputLabel styleClass="labelMargin"
+                                               value="#{fn:length(profileBean.user.followers)} Followers"/>
+                            </p:commandLink>
+                        </div>
+
+                        <!--Show tweet link-->
+                        <div class="tweetInfo">
+                            <p:commandLink id="showTweets" update="contentPanel"
+                                           action="#{profileBean.showTweets}">
+                                <p:outputLabel styleClass="labelMargin"
+                                               value="#{fn:length(profileBean.user.tweets)} Tweets"/>
+                            </p:commandLink>
+                        </div>
+                    </div>
+                    <div class="pill" id="followings">
+                        <p:dataGrid var="following" value="#{profileBean.user.following}">
+
+                            <f:facet name="header">
+                                <p:outputLabel value="following"/>
+                            </f:facet>
+                            <h:outputLink value="profile/#{following.name}">#{following.name}</h:outputLink>
+                        </p:dataGrid>
+                    </div>
+                </div>
+
+                <div class="rightContent">
+                    <p:panel prependId="false" id="contentPanel">
+
+                        <p:blockUI block="contentPanel" trigger="showFollowing, showFollowers, showTweets">
+                            <div class="animatedload">
+                                <img src="#{resource['images/loader.GIF']}"/>
+                            </div>
+                        </p:blockUI>
+
+                        <!--Load when we need to load the user tweets-->
+                        <h:panelGroup styleClass="pill userTweets" id="tweets" layout="block"
+                                      rendered="#{profileBean.loadTweets}">
+
+                            <ui:include src="views/tweetTable.xhtml">
+                                    <ui:param name="datasource" value="#{profileBean.tweets}"/>
+                                    <ui:param name="header" value="#{profileBean.user.name}'s tweets"/>
+                                    <ui:param name="emptyText" value="#{profileBean.user.name} has not tweeted anything yet."/>
+                            </ui:include>
+                        </h:panelGroup>
+
+                        <!--Load when we need to load followers or followings-->
+                        <h:panelGroup styleClass="pill" id="followingers" layout="block"
+                                      rendered="#{!profileBean.loadTweets}">
+
+                            <p:dataTable var="user" value="#{profileBean.renderedUsers}"
+                                         paginator="true" rows="30"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                         emptyMessage="#{profileBean.user.name} has no #{profileBean.headerText}">
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="#{profileBean.user.name}'s #{profileBean.headerText}"/>
+                                </f:facet>
+
+                                <p:column>
+                                    <div>
+                                        <p:outputLabel value="#{user.name}"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGroup>
+                    </p:panel>
+                </div>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

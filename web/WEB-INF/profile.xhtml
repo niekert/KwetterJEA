@@ -80,23 +80,12 @@
                         <!--Load when we need to load the user tweets-->
                         <h:panelGroup styleClass="pill userTweets" id="tweets" layout="block"
                                       rendered="#{profileBean.loadTweets}">
-                            <p:dataTable var="tweet" value="#{profileBean.tweets}"
-                                         paginator="true" rows="30"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                         emptyMessage="#{profileBean.user.name} has not tweeted yet! :(">
-                                <f:facet name="header">
-                                    <p:outputLabel value="#{profileBean.user.name}'s Tweets"/>
-                                </f:facet>
-                                <p:column>
-                                    <div>
-                                        <p:outputLabel value="#{tweet.content}"/>
 
-                                        <div class="small">
-                                            <h:outputText value="#{tweet.friendlyDateFormat} from #{tweet.vanaf}"/>
-                                        </div>
-                                    </div>
-                                </p:column>
-                            </p:dataTable>
+                            <ui:include src="views/tweetTable.xhtml">
+                                    <ui:param name="datasource" value="#{profileBean.tweets}"/>
+                                    <ui:param name="header" value="#{profileBean.user.name}'s tweets"/>
+                                    <ui:param name="emptyText" value="#{profileBean.user.name} has not tweeted anything yet."/>
+                            </ui:include>
                         </h:panelGroup>
 
                         <!--Load when we need to load followers or followings-->

@@ -4,7 +4,7 @@
                 xmlns:c="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
-    <c:form id="loginForm" styleClass="form-horizontal">
+    <c:form id="#{id}_loginform" styleClass="form-horizontal">
         <h4>Log in to Kwetter</h4>
 
 
@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <c:commandButton value="Login" styleClass="btn btn-default" action="#{authenticationBean.AuthenticatePerson()}"/>
+                <p:commandButton value="Login" update="#{id}_loginform" styleClass="btn btn-default" actionListener="#{authenticationBean.AuthenticatePerson()}"/>
             </div>
         </div>
 

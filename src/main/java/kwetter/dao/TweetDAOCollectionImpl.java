@@ -1,5 +1,7 @@
 package kwetter.dao;
 
+import com.google.common.base.Functions;
+import com.google.common.collect.Ordering;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.utils.CaseInsensitiveSet;
@@ -17,7 +19,7 @@ public class TweetDAOCollectionImpl implements TweetDAO
 {
     private UserDAO userDAO;
     private List<Tweet> tweets = new ArrayList<Tweet>();
-    private HashMap<String, Tweet> hashtagCollection = new HashMap<String, Tweet>();
+    private HashMap<String, List<Tweet>> hashtagCollection = new HashMap<String, List<Tweet>>();
 
 
     public TweetDAOCollectionImpl(UserDAO userDAO){
@@ -65,7 +67,13 @@ public class TweetDAOCollectionImpl implements TweetDAO
         //Iterate the hashtags
         for (String tag : hashtags)
         {
-            this.hashtagCollection.put(tag.substring(1), tweet);
+            if(this.hashtagCollection.containsKey(tag)){
+                this.hashtagCollection.get(tag).add(tweet);
+            } else {
+                List<Tweet> tweetList = new ArrayList<Tweet>();
+                tweetList.add(tweet);
+                this.hashtagCollection.put(tag, tweetList);
+            }
         }
     }
 
@@ -119,6 +127,22 @@ public class TweetDAOCollectionImpl implements TweetDAO
             }
         }
 
+        Collections.sort(mentionedTweets);
         return mentionedTweets;
+    }
+
+    @Override
+    public List<Tweet> getTweetsFromHashtag(String tag) {
+        return this.hashtagCollection.get(tag);
+    }
+
+    @Override
+    public Map<String, Integer> getCurrentTrends() {
+        HashMap<String, Integer> tagsAndOccurrences = new HashMap<String, Integer>();
+        for (Map.Entry<String, List<Tweet>> entry : this.hashtagCollection.entrySet()) {
+            tagsAndOccurrences.put(entry.getKey(), entry.getValue().size());
+        }
+
+        return tagsAndOccurrences;
     }
 }

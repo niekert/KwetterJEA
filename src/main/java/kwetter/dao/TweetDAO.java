@@ -3,7 +3,9 @@ package kwetter.dao;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Niek on 15/02/14.
@@ -26,5 +28,8 @@ public interface TweetDAO
 
     List<Tweet> findMentions(User user);
 
+    List<Tweet> getTweetsFromHashtag(String tag);
+
+    Map<String, Integer> getCurrentTrends();
 
 }
