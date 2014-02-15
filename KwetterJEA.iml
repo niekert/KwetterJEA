@@ -10,8 +10,8 @@
           <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
           <root url="file://$MODULE_DIR$/src/main/resources" />
+          <root url="file://$MODULE_DIR$/src/main/java" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -39,6 +39,7 @@
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:2.0.10.Final" level="project" />
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:2.0.10.Final" level="project" />
     <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-integration-faces:2.0.10.Final" level="project" />
+    <orderEntry type="library" name="guava-16.0.1" level="project" />
   </component>
 </module>
 

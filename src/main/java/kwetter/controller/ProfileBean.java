@@ -1,5 +1,6 @@
 package kwetter.controller;
 
+import com.google.common.collect.Lists;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.service.KwetterService;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,11 +42,13 @@ public class ProfileBean implements Serializable {
     }
 
     public List<Tweet> getTweets() {
-        return tweets;
+        return Lists.reverse(tweets);
     }
+
     public User getUser() {
         return user;
     }
+
     public boolean isLoadTweets() {
         return loadTweets;
     }
@@ -60,7 +64,7 @@ public class ProfileBean implements Serializable {
     }
 
     public void showFollowers() {
-        if(this.user == null){
+        if (this.user == null) {
             return;
         }
 
