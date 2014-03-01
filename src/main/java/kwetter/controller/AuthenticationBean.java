@@ -9,13 +9,14 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Created by Niek on 12/02/14.
  */
 @Named
 @RequestScoped
-public class AuthenticationBean {
+public class AuthenticationBean implements Serializable {
 
     @Inject
     private SessionBean sessionBean;

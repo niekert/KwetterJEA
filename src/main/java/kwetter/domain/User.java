@@ -1,5 +1,9 @@
 package kwetter.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,16 +11,26 @@ import java.util.Collections;
 import java.util.List;
 
 
+@Entity(name ="User")
 public class User implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String name;
     private String web;
     private String bio;
 
+    @OneToMany
     private List<User> following = new ArrayList();
+
+    @OneToMany
     private List<Tweet> tweets = new ArrayList();
+
+    @OneToMany
     private List<User> followers = new ArrayList<User>();
 
     public User()
@@ -33,6 +47,10 @@ public class User implements Serializable
         this.name = naam;
         this.web = web;
         this.bio = bio;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public List<User> getFollowers()

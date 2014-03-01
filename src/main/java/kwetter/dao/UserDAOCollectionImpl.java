@@ -7,26 +7,32 @@ import java.util.List;
 import kwetter.domain.User;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.ejb.Singleton;
+import javax.ejb.Stateful;
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+
+@Singleton
 public class UserDAOCollectionImpl implements UserDAO
 {
 
-    private List<User> users;
+    @PersistenceContext(unitName = "pu")
+    private EntityManager em;
 
-    public UserDAOCollectionImpl()
-    {
-        users = new ArrayList();
-    }
 
     @Override
     public int count()
     {
-        return users.size();
+        Query query = em.createQuery("select count(user) from User user");
+        return (Integer)query.getSingleResult();
     }
 
     @Override
     public void create(User user)
     {
-        users.add(user);
+            em.persist(user);
     }
 
     @Override
@@ -38,47 +44,37 @@ public class UserDAOCollectionImpl implements UserDAO
     @Override
     public List<User> findAll()
     {
-        return new ArrayList(users);
+        Query q = em.createQuery("select user from User user");
+
+        return q.getResultList();
     }
 
     @Override
     public void remove(User user)
     {
-        users.remove(user);
+        em.remove(user);
     }
 
     @Override
     public User find(Long id)
     {
-        throw new NotImplementedException();
+        Query q = em.createQuery("select user from User user where user.id = :id");
+        q.setParameter("id", id);
+
+        List<User> usersFound = q.getResultList();
+        return usersFound.isEmpty() ? null : usersFound.get(0);
     }
 
     @Override
     public User find(String name)
     {
-        User foundUser = null;
-        for (User user : users)
-        {
-            if (user.getName().toLowerCase().equals(name.toLowerCase()))
-            {
-                foundUser = user;
-                break;
-            }
-        }
+        Query q = em.createQuery("select user from User user where user.name = :name");
+        q.setParameter("name", name);
 
-        return foundUser;
+
+        List<User> usersFound = q.getResultList();
+        return usersFound.isEmpty() ? null : usersFound.get(0);
+
     }
 
-    @Override
-    public void setFollowers(User userToAdd){
-        List<User> followers = new ArrayList<User>();
-        for (User user : users)
-        {
-            if(user.getFollowing().contains(userToAdd)){
-                followers.add(user);
-            }
-        }
-
-        userToAdd.setFollowers(followers);
-    }
 }

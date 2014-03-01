@@ -10,18 +10,26 @@ import kwetter.dao.UserDAOCollectionImpl;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
-@Stateless
+
+@Startup
+@Stateful
+@Singleton
 public class KwetterService implements Serializable {
 
-    private UserDAO userDAO = new UserDAOCollectionImpl();
-    private TweetDAO tweetDao = new TweetDAOCollectionImpl(userDAO);
+    @Inject
+    private UserDAO userDAO;
 
-    public KwetterService() {
-        initUsers();
-    }
+    @Inject
+    private TweetDAO tweetDao;
+
 
     public void create(User user) {
         userDAO.create(user);
@@ -94,6 +102,7 @@ public class KwetterService implements Serializable {
         tweetDao.create(tweet);
     }
 
+    @PostConstruct
     private void initUsers() {
         User u1 = new User("Niek", "http", "geboren 1");
         User u2 = new User("Frank", "httpF", "geboren 2");

@@ -2,18 +2,27 @@ package kwetter.domain;
 
 import kwetter.utils.Utilities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+@Entity(name = "Tweet")
 public class Tweet implements Serializable, Comparable<Tweet>{
     private static final long serialVersionUID = 2L;
+
+    @Id @GeneratedValue
+    private Long ID;
+
     private String content;
     private Date postDate;
     private String postedFrom;
+
+    @OneToMany
     private List<User> mentions = new ArrayList<User>();
+
+    @OneToOne
     private User user;
 
     public Tweet() {
@@ -28,6 +37,9 @@ public class Tweet implements Serializable, Comparable<Tweet>{
         user.addTweet(this);
     }
 
+    public Long getID() {
+        return ID;
+    }
 
     public User getUser() {
         return user;
