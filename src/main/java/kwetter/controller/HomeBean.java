@@ -2,6 +2,7 @@ package kwetter.controller;
 
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
+import kwetter.events.NewTweetEvent;
 import kwetter.service.KwetterService;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.tagcloud.DefaultTagCloudItem;
@@ -9,6 +10,8 @@ import org.primefaces.model.tagcloud.DefaultTagCloudModel;
 import org.primefaces.model.tagcloud.TagCloudItem;
 import org.primefaces.model.tagcloud.TagCloudModel;
 
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -23,7 +26,7 @@ import java.util.Map;
 /**
  * Created by Niek on 14-2-14.
  */
-@Named
+@Named(value = "homeBean")
 @ViewScoped
 public class HomeBean {
 
@@ -32,6 +35,9 @@ public class HomeBean {
 
     @Inject
     private SessionBean session;
+
+    @Inject @Any
+    private Event<NewTweetEvent> newTweetEvent;
 
     private User homeUser;
     private String searchText = "";
@@ -106,7 +112,7 @@ public class HomeBean {
 
         if (this.newTweetContents.isEmpty()) return;
 
-        service.postNewTweet(new Tweet(session.getAuthenticatedUser(), newTweetContents, new Date(), "PC"));
+        newTweetEvent.fire(new NewTweetEvent(new Tweet(session.getAuthenticatedUser(), newTweetContents, new Date(), "pc")));
         newTweetContents = "";
     }
 

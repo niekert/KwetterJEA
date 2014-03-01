@@ -1,10 +1,13 @@
 package kwetter.controller;
 
 import kwetter.domain.User;
+import kwetter.events.AuthenticationEvent;
 import kwetter.service.KwetterService;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,6 +26,9 @@ public class AuthenticationBean implements Serializable {
 
     @Inject
     private KwetterService service;
+
+    @Inject @Any
+    private Event<AuthenticationEvent> authenticationEvent;
 
 
     private boolean HasFailures = false;
@@ -60,6 +66,7 @@ public class AuthenticationBean implements Serializable {
     }
 
     public String AuthenticatePerson(){
+
         User authenticatedPerson = service.authenticateUser(this.getUsername(), this.getPassword());
 
         if(authenticatedPerson == null){

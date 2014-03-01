@@ -9,12 +9,16 @@ import kwetter.dao.UserDAO;
 import kwetter.dao.UserDAOCollectionImpl;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
+import kwetter.events.AuthenticationEvent;
+import kwetter.events.NewTweetEvent;
+import kwetter.events.SignoutEvent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -98,8 +102,8 @@ public class KwetterService implements Serializable {
         return tweetDao.findMentions(user);
     }
 
-    public void postNewTweet(Tweet tweet){
-        tweetDao.create(tweet);
+    public void postNewTweet(@Observes NewTweetEvent event){
+        tweetDao.create(event.getTweet());
     }
 
     @PostConstruct
@@ -156,6 +160,13 @@ public class KwetterService implements Serializable {
         tweetDao.create(t15);
         tweetDao.create(t16);
         tweetDao.create(t17);
+    }
 
+    public void onAuthenticationEvent(@Observes AuthenticationEvent event){
+        System.out.println("User: " + event.getUsername() + "Tried authenticating at" + event.getTime().toString());
+    }
+
+    public void onSignoutEvent(@Observes SignoutEvent event){
+        System.out.println("User: " + event.getUser().getName() + "Signed out at:" + event.getTime().toString());
     }
 }
