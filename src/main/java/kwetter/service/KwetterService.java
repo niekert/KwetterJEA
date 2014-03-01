@@ -106,8 +106,7 @@ public class KwetterService implements Serializable {
         tweetDao.create(event.getTweet());
     }
 
-    @PostConstruct
-    private void initUsers() {
+    public void initUsers() {
 
         System.out.println("Initializing users");
         User u1 = new User("Niek", "http", "geboren 1");
