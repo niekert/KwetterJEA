@@ -1,7 +1,5 @@
 package kwetter.dao;
 
-import com.google.common.base.Functions;
-import com.google.common.collect.Ordering;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.utils.CaseInsensitiveSet;
@@ -11,7 +9,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
-import java.io.Serializable;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,27 +19,28 @@ import java.util.regex.Pattern;
 /**
  * Created by Niek on 15/02/14.
  */
+
 @Singleton
-public class TweetDAOCollectionImpl implements TweetDAO, Serializable
+public class TweetDAO_JPAImpl
 {
+
     @Inject
     private UserDAO userDAO;
 
-    private List<Tweet> tweets = new ArrayList<Tweet>();
+    @PersistenceContext(unitName = "pu")
+    private EntityManager em;
+
     private HashMap<String, List<Tweet>> hashtagCollection = new HashMap<String, List<Tweet>>();
 
 
-
-    @Override
     public int count()
     {
-        return tweets.size();
+        Query query = em.createQuery("select count(tweet) from Tweet tweet");
+        return (Integer)query.getSingleResult();
     }
 
-    @Override
     public void create(Tweet tweet)
     {
-        tweets.add(tweet);
 
         Pattern mentionPattern = Pattern.compile(Constants.MENTIONS_REGEX, Pattern.CASE_INSENSITIVE);
         Pattern hashtagPattern = Pattern.compile(Constants.HASHTAG_REGEX);
@@ -79,68 +80,57 @@ public class TweetDAOCollectionImpl implements TweetDAO, Serializable
                 this.hashtagCollection.put(tag, tweetList);
             }
         }
+
+        em.persist(tweet);
     }
 
-    @Override
     public void edit(Tweet tweet)
     {
         throw new NotImplementedException();
     }
 
-    @Override
     public void remove(Tweet tweet)
     {
-        tweets.remove(tweet);
+        em.remove(tweet);
     }
 
-    @Override
     public List<Tweet> findAll()
     {
-        return this.tweets;
+        Query query = em.createQuery("select tweet from Tweet tweet");
+
+        return query.getResultList();
     }
 
-    @Override
     public Tweet find(Long id)
     {
         throw new NotImplementedException();
     }
 
-    @Override
     public List<Tweet> findTweets(String contains)
     {
-        List<Tweet> containedTweets = new ArrayList<Tweet>();
-        for (Tweet tweet : tweets)
-        {
-            if(tweet.getContent().toLowerCase().contains(contains.toLowerCase())){
-                containedTweets.add(tweet);
-            }
-        }
+        Query q = em.createQuery("select tweet from Tweet tweet where tweet.content LIKE :contents");
+        q.setParameter("contents", contains);
 
-        return containedTweets;
+
+        return q.getResultList();
     }
 
 
-    @Override
     public List<Tweet> findMentions(User user)
     {
-        List<Tweet> mentionedTweets = new ArrayList<Tweet>();
-        for (Tweet tweet : tweets)
-        {
-            if(tweet.getMentions().contains(user)){
-                mentionedTweets.add(tweet);
-            }
-        }
+        Query q = em.createQuery("select tweet from Tweet tweet join tweet.mentions mentions where mentions.id = :userid");
+        q.setParameter("userid", user.getId());
+
+        List<Tweet> mentionedTweets = q.getResultList();
 
         Collections.sort(mentionedTweets);
         return mentionedTweets;
     }
 
-    @Override
     public List<Tweet> getTweetsFromHashtag(String tag) {
         return this.hashtagCollection.get(tag);
     }
 
-    @Override
     public Map<String, Integer> getCurrentTrends() {
         HashMap<String, Integer> tagsAndOccurrences = new HashMap<String, Integer>();
         for (Map.Entry<String, List<Tweet>> entry : this.hashtagCollection.entrySet()) {

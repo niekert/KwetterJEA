@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 
 @Startup
-@Stateful
 @Singleton
+@Stateful
 public class KwetterService implements Serializable {
 
     @Inject
@@ -104,6 +104,8 @@ public class KwetterService implements Serializable {
 
     @PostConstruct
     private void initUsers() {
+
+        System.out.println("Initializing users");
         User u1 = new User("Niek", "http", "geboren 1");
         User u2 = new User("Frank", "httpF", "geboren 2");
         User u3 = new User("Tom", "httpT", "geboren 3");

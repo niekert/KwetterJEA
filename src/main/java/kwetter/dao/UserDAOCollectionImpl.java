@@ -1,5 +1,6 @@
 package kwetter.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -9,30 +10,28 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
-import javax.persistence.Query;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 
 @Singleton
-public class UserDAOCollectionImpl implements UserDAO
+public class UserDAOCollectionImpl implements UserDAO, Serializable
 {
 
-    @PersistenceContext(unitName = "pu")
-    private EntityManager em;
+    private List<User> users;
 
+    public UserDAOCollectionImpl()
+    {
+        users = new ArrayList();
+    }
 
     @Override
     public int count()
     {
-        Query query = em.createQuery("select count(user) from User user");
-        return (Integer)query.getSingleResult();
+        return users.size();
     }
 
     @Override
     public void create(User user)
     {
-            em.persist(user);
+        users.add(user);
     }
 
     @Override
@@ -44,37 +43,34 @@ public class UserDAOCollectionImpl implements UserDAO
     @Override
     public List<User> findAll()
     {
-        Query q = em.createQuery("select user from User user");
-
-        return q.getResultList();
+        return new ArrayList(users);
     }
 
     @Override
     public void remove(User user)
     {
-        em.remove(user);
+        users.remove(user);
     }
 
     @Override
     public User find(Long id)
     {
-        Query q = em.createQuery("select user from User user where user.id = :id");
-        q.setParameter("id", id);
-
-        List<User> usersFound = q.getResultList();
-        return usersFound.isEmpty() ? null : usersFound.get(0);
+        throw new NotImplementedException();
     }
 
     @Override
     public User find(String name)
     {
-        Query q = em.createQuery("select user from User user where user.name = :name");
-        q.setParameter("name", name);
+        User foundUser = null;
+        for (User user : users)
+        {
+            if (user.getName().toLowerCase().equals(name.toLowerCase()))
+            {
+                foundUser = user;
+                break;
+            }
+        }
 
-
-        List<User> usersFound = q.getResultList();
-        return usersFound.isEmpty() ? null : usersFound.get(0);
-
+        return foundUser;
     }
-
 }
