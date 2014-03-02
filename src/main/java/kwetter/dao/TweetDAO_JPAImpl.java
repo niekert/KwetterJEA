@@ -107,7 +107,7 @@ public class TweetDAO_JPAImpl implements TweetDAO
     public List<Tweet> findTweets(String contains)
     {
         Query q = em.createQuery("select tweet from Tweet tweet where tweet.content LIKE :contents");
-        q.setParameter("contents", contains);
+        q.setParameter("contents", "%"+contains+"%");
 
 
         return q.getResultList();

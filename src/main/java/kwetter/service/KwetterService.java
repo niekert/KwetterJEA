@@ -165,7 +165,6 @@ public class KwetterService implements Serializable {
      * Post a new tweet and save it
      * @param postedTweet The tweet posted
      */
-    @Interceptors(TweetInterceptor.class)
     public void postNewTweet(Tweet postedTweet){
         Pattern mentionPattern = Pattern.compile(Constants.MENTIONS_REGEX, Pattern.CASE_INSENSITIVE);
 
@@ -288,6 +287,7 @@ public class KwetterService implements Serializable {
      * Executed when a newtweetpost event is detected
      * @param event
      */
+    @Interceptors(TweetInterceptor.class)
     public void onNewTweetPostEvent(@Observes NewTweetEvent event){
         this.postNewTweet(event.getTweet());
         System.out.println("A new tweet was poted at: " + event.getTweet().getDatum().toString());

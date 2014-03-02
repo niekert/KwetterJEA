@@ -21,7 +21,7 @@
         <setting name="provider-name" value="OpenJPA" />
         <datasource-mapping>
           <factory-entry name="NewPersistenceUnit" />
-          <factory-entry name="pu" value="1f171105-29a2-4646-a482-ba0864d985cf" />
+          <factory-entry name="pu" value="4816c8ce-bd33-4d51-b48b-eccbe816bdc4" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
