@@ -81,6 +81,7 @@ public class HomeBean {
         this.searchText = searchText;
     }
 
+
     public void validateLogin() throws IOException {
         if (session.getAuthenticatedUser() == null) {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -90,10 +91,17 @@ public class HomeBean {
         }
     }
 
+    /**
+     * Get the latest tweet posted  by the user.
+     * @return
+     */
     public Tweet getLatestTweet() {
         return homeUser.getTweets().get(0);
     }
 
+    /**
+     * Searches tweets based on the text entered
+     */
     public void searchTweets() {
         if (searchText.isEmpty()) {
             this.tabIndex = 0;
@@ -108,6 +116,9 @@ public class HomeBean {
 
     }
 
+    /**
+     * Fires a new NewTweetEvent when the post new tweet button is clicked.
+     */
     public void postNewTweet() {
 
         if (this.newTweetContents.isEmpty()) return;
@@ -118,10 +129,18 @@ public class HomeBean {
         newTweetContents = "";
     }
 
+    /**
+     * Gets all the mentions from this user from the kwetterservice
+     * @return
+     */
     public List<Tweet> getMentions() {
         return service.getMentions(homeUser);
     }
 
+    /**
+     * Creates a tagcloudModel for popular hashtags #YOLO, #SWAG.
+     * @return
+     */
     public TagCloudModel getModel(){
         TagCloudModel tagModel = new DefaultTagCloudModel();
 
@@ -133,6 +152,10 @@ public class HomeBean {
         return tagModel;
     }
 
+    /**
+     * Fired when a tag in the TagCloud is clicked, searches for tweets containing that tag.
+     * @param event
+     */
     public void searchTag(SelectEvent event){
         TagCloudItem item = (TagCloudItem) event.getObject();
         this.searchText = item.getLabel();

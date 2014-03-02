@@ -40,6 +40,10 @@ public class TweetDAO_JPAImpl implements TweetDAO
         return (Integer)query.getSingleResult();
     }
 
+    /**
+     * Creates a new tweet and handles the popular tags
+     * @param tweet the tweet that needs to be perssised
+     */
     public void create(Tweet tweet)
     {
 
@@ -95,6 +99,11 @@ public class TweetDAO_JPAImpl implements TweetDAO
         return tweet;
     }
 
+    /**
+     * Find tweets based on text
+     * @param contains The text the tweet should contain
+     * @return
+     */
     public List<Tweet> findTweets(String contains)
     {
         Query q = em.createQuery("select tweet from Tweet tweet where tweet.content LIKE :contents");
@@ -105,6 +114,11 @@ public class TweetDAO_JPAImpl implements TweetDAO
     }
 
 
+    /**
+     * Find the tweets in which the user specified is mentioned.
+     * @param user user
+     * @return
+     */
     public List<Tweet> findMentions(User user)
     {
         Query q = em.createQuery("select tweet from Tweet tweet join tweet.mentions mentions where mentions.id = :userid");

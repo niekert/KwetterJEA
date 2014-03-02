@@ -59,12 +59,20 @@ public class AuthenticationBean implements Serializable {
         this.password = password;
     }
 
+    /**
+     * Checks if a person is already authenticated.
+     * @throws IOException
+     */
     public void checkIfAlreadyAuthenticated() throws IOException{
         if(sessionBean.getAuthenticatedUser() != null){
             FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");
         }
     }
 
+    /**
+     * Authenticates the person to gain access to the website
+     * @return
+     */
     public String AuthenticatePerson(){
 
         authenticationEvent.fire(new AuthenticationEvent(this.getUsername(), AuthenticationEvent.AuthenticationType.SIGNIN));

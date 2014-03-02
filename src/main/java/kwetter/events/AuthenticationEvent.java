@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by Niek on 1-3-14.
+ * Authenticationevent that is used when a user signs in or out of the application.
  */
 public class AuthenticationEvent {
     private final String username;

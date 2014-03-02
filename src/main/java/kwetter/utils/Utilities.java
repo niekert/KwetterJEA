@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by Niek on 13/02/14.
+ * Utility for creating friendly date formats
  */
 public class Utilities
 {

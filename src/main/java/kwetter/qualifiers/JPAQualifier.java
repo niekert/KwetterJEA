@@ -12,6 +12,7 @@ import java.lang.annotation.Target;
 
 /**
  * Created by Niek on 02/03/14.
+ * Qualifier for JPA DAO implementations
  */
 @Qualifier
 @Retention(RUNTIME)

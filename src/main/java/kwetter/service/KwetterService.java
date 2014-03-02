@@ -37,14 +37,29 @@ public class KwetterService implements Serializable {
     private TweetDAO tweetDao;
 
 
+    /**
+     * Creates a new user in the DAO
+     * @param user User object to persist
+     */
     public void create(User user) {
         userDAO.create(user);
     }
 
+    /**
+     * Edits the user specified
+     * @param user edit
+     */
     public void edit(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Authenticates a user, based on username (and password in the future)
+     * @param username Username specified
+     * @param password password
+     * @return
+     * TODO: Password authentication
+     */
     public User authenticateUser(String username, String password) {
         if (username.isEmpty()) {
             return null;
@@ -54,34 +69,71 @@ public class KwetterService implements Serializable {
         return userDAO.findByName(username);
     }
 
+    /**
+     * Remove the user specified from the database
+     * @param user User to remove
+     */
     public void remove(User user) {
         userDAO.remove(user);
     }
 
+    /**
+     * Finds all tweets with search text specified
+     * @param searchText Tweet contents to search for
+     * @return
+     */
     public List<Tweet> findTweets(String searchText) {
         return tweetDao.findTweets(searchText);
     }
 
+    /**
+     * Find all existing users
+     * @return All existing users in a list
+     */
     public List<User> findAll() {
         return userDAO.findAll();
     }
 
+    /**
+     * Find a user based on the identifier
+     * @param id Identifier of the user
+     * @return Found user
+     */
     public User find(Long id) {
         return userDAO.find(id);
     }
 
+    /**
+     * Find a user based on name
+     * @param name Username of user
+     * @return The user found
+     */
     public User find(String name) {
         return userDAO.findByName(name);
     }
 
+    /**
+     * Count the number of users
+     * @return
+     */
     public int count() {
         return userDAO.count();
     }
 
+    /**
+     * Get the current trending tweets (hashtags)
+     * @return
+     */
     public Map<String, Integer> getCurrentTrends(){
         return tweetDao.getCurrentTrends();
     }
 
+    /**
+     * Creates the timeline for the user
+     * TODO: Use efficient query
+     * @param user User ti create tge timeline for
+     * @return
+     */
     public List<Tweet> getTimeline(User user){
         List<Tweet> timelineTweets = new ArrayList<Tweet>();
         for (User existingUser : userDAO.findAll())
@@ -100,10 +152,19 @@ public class KwetterService implements Serializable {
 
     }
 
+    /**
+     * Get the tweets in which the user specified is mentioned
+     * @param user user to get mentions from
+     * @return
+     */
     public List<Tweet> getMentions(User user){
         return tweetDao.findMentions(user);
     }
 
+    /**
+     * Post a new tweet and save it
+     * @param postedTweet The tweet posted
+     */
     @Interceptors(TweetInterceptor.class)
     public void postNewTweet(Tweet postedTweet){
         Pattern mentionPattern = Pattern.compile(Constants.MENTIONS_REGEX, Pattern.CASE_INSENSITIVE);
@@ -129,6 +190,9 @@ public class KwetterService implements Serializable {
         tweetDao.create(postedTweet);
     }
 
+    /**
+     * Initializes users and tweets for testing purposes.
+     */
     public void initUsers() {
 
         System.out.println("Initializing users");
@@ -183,6 +247,10 @@ public class KwetterService implements Serializable {
         this.postNewTweet(t17);
     }
 
+    /**
+     * Executed when an AuthenticationEvent is detected
+     * @param event
+     */
     public void onAuthenticationEvent(@Observes AuthenticationEvent event){
 
         switch (event.getAuthenticationType())
@@ -197,6 +265,10 @@ public class KwetterService implements Serializable {
     }
 
 
+    /**
+     * Fired when a followChangeEvent is detected
+     * @param event
+     */
     public void onFollowChangeEvent(@Observes FollowingChangedEvent event)
     {
         //If user invoking is already following, remove the users
@@ -212,6 +284,10 @@ public class KwetterService implements Serializable {
         }
     }
 
+    /**
+     * Executed when a newtweetpost event is detected
+     * @param event
+     */
     public void onNewTweetPostEvent(@Observes NewTweetEvent event){
         this.postNewTweet(event.getTweet());
         System.out.println("A new tweet was poted at: " + event.getTweet().getDatum().toString());

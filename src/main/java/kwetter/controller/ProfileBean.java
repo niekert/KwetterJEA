@@ -99,6 +99,11 @@ public class ProfileBean implements Serializable {
         }
     }
 
+    /**
+     * Checks whether or not the authenticated user on the profile is already following the profile he is
+     * currently viewsing
+     * @return
+     */
     public boolean isAlreadyFollowing()
     {
         User authenticatedPerson = userSession.getAuthenticatedUser();

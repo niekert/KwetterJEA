@@ -10,6 +10,7 @@ import javax.interceptor.InvocationContext;
 
 /**
  * Created by Niek on 01/03/14.
+ * Interceptor that modifies lame words used in tweets
  */
 public class TweetInterceptor {
 

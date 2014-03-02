@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 /**
  * Created by Niek on 1-3-14.
+ * Bean that runs on the strtup of the application. intializes the users.
  */
 @ManagedBean(eager=true)
 @ApplicationScoped

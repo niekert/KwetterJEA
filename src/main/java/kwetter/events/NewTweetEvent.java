@@ -4,6 +4,7 @@ import kwetter.domain.Tweet;
 
 /**
  * Created by Niek on 1-3-14.
+ * Event that is created and fired when a user pots a new tweet.
  */
 public class NewTweetEvent {
     private Tweet tweet;
