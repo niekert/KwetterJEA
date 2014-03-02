@@ -1,16 +1,13 @@
 package kwetter.controller;
 
 import kwetter.domain.User;
-import kwetter.events.SignoutEvent;
+import kwetter.events.AuthenticationEvent;
 import kwetter.service.KwetterService;
-import kwetter.utils.Constants;
 
-import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
@@ -27,7 +24,7 @@ public class SessionBean implements Serializable {
     private KwetterService service;
 
     @Inject @Any
-    private Event<SignoutEvent> signoutEvent;
+    private Event<AuthenticationEvent> signoutEvent;
 
     private User authenticatedUser = null;
 
@@ -42,7 +39,7 @@ public class SessionBean implements Serializable {
 
     public void logOut() throws IOException{
 
-        this.signoutEvent.fire(new SignoutEvent(this.authenticatedUser));
+        this.signoutEvent.fire(new AuthenticationEvent(this.getAuthenticatedUser().getName(), AuthenticationEvent.AuthenticationType.SIGNOUT));
         this.authenticatedUser = null;
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");

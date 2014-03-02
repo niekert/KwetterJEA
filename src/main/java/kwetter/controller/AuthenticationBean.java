@@ -67,6 +67,7 @@ public class AuthenticationBean implements Serializable {
 
     public String AuthenticatePerson(){
 
+        authenticationEvent.fire(new AuthenticationEvent(this.getUsername(), AuthenticationEvent.AuthenticationType.SIGNIN));
         User authenticatedPerson = service.authenticateUser(this.getUsername(), this.getPassword());
 
         if(authenticatedPerson == null){

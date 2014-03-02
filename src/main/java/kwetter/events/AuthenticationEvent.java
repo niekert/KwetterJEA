@@ -1,7 +1,5 @@
 package kwetter.events;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
-
 import java.util.Date;
 
 /**
@@ -9,10 +7,12 @@ import java.util.Date;
  */
 public class AuthenticationEvent {
     private final String username;
+    private final AuthenticationType authenticationType;
     private final Date time = new Date();
 
-    public AuthenticationEvent(String username){
+    public AuthenticationEvent(String username, AuthenticationType authenticationType){
         this.username = username;
+        this.authenticationType = authenticationType;
     }
 
     public String getUsername() {
@@ -22,4 +22,13 @@ public class AuthenticationEvent {
     public Date getTime() {
         return time;
     }
+
+    public AuthenticationType getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public enum AuthenticationType {
+        SIGNIN, SIGNOUT
+    }
 }
+

@@ -3,9 +3,12 @@ package kwetter.controller;
 import com.google.common.collect.Lists;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
+import kwetter.events.FollowingChangedEvent;
 import kwetter.service.KwetterService;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,6 +25,9 @@ import java.util.List;
 public class ProfileBean implements Serializable {
     @Inject
     private SessionBean userSession;
+
+    @Inject @Any
+    private Event<FollowingChangedEvent> followChangeEvent;
 
 
     @Inject
@@ -91,5 +97,24 @@ public class ProfileBean implements Serializable {
         if (user != null) {
             tweets = user.getTweets();
         }
+    }
+
+    public boolean isAlreadyFollowing()
+    {
+        User authenticatedPerson = userSession.getAuthenticatedUser();
+
+        return authenticatedPerson.getFollowing().contains(user);
+    }
+
+    /**
+     * Follow or unfollow the user when the button is clicked.
+     */
+    public void followUnfollow(){
+        User clickedByUser = userSession.getAuthenticatedUser();
+
+        if(clickedByUser == null) return;
+
+        //Follow if not following yet, unfollow if following.
+        this.followChangeEvent.fire(new FollowingChangedEvent(clickedByUser, this.user));
     }
 }

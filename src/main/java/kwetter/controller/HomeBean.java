@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Created by Niek on 14-2-14.
  */
-@Named(value = "homeBean")
+@Named
 @ViewScoped
 public class HomeBean {
 

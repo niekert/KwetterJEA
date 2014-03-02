@@ -4,23 +4,20 @@ import java.io.Serializable;
 import java.util.*;
 
 import kwetter.dao.TweetDAO;
-import kwetter.dao.TweetDAOCollectionImpl;
 import kwetter.dao.UserDAO;
-import kwetter.dao.UserDAOCollectionImpl;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.events.AuthenticationEvent;
+import kwetter.events.FollowingChangedEvent;
 import kwetter.events.NewTweetEvent;
-import kwetter.events.SignoutEvent;
+import kwetter.interceptors.TweetInterceptor;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 
 
 @Startup
@@ -102,6 +99,7 @@ public class KwetterService implements Serializable {
         return tweetDao.findMentions(user);
     }
 
+    @Interceptors(TweetInterceptor.class)
     public void postNewTweet(@Observes NewTweetEvent event){
         tweetDao.create(event.getTweet());
     }
@@ -162,10 +160,33 @@ public class KwetterService implements Serializable {
     }
 
     public void onAuthenticationEvent(@Observes AuthenticationEvent event){
-        System.out.println("User: " + event.getUsername() + "Tried authenticating at" + event.getTime().toString());
+
+        switch (event.getAuthenticationType())
+        {
+            case SIGNIN:
+                System.out.println("User: " + event.getUsername() + " Tried authenticating at " + event.getTime().toString());
+                break;
+            case SIGNOUT:
+                System.out.println("User: " + event.getUsername() + " Signed out at " + event.getTime().toString());
+                break;
+        }
     }
 
-    public void onSignoutEvent(@Observes SignoutEvent event){
-        System.out.println("User: " + event.getUser().getName() + "Signed out at:" + event.getTime().toString());
+
+    public void onFollowChangeEvent(@Observes FollowingChangedEvent event)
+    {
+        //If user invoking is already following, remove the users
+        if(event.getInvokingUser().getFollowing().contains(event.getTargetedUser())){
+            event.getInvokingUser().getFollowing().remove(event.getTargetedUser());
+            event.getTargetedUser().getFollowers().remove(event.getInvokingUser());
+            System.out.println(event.getInvokingUser().getName() + " Unfollowed " + event.getTargetedUser().getName());
+        }
+        //Else add the user
+        else {
+            event.getInvokingUser().getFollowing().add(event.getTargetedUser());
+            event.getTargetedUser().getFollowers().add(event.getInvokingUser());
+            System.out.println(event.getInvokingUser().getName() + " Followed " + event.getTargetedUser().getName());
+
+        }
     }
 }

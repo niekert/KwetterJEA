@@ -121,6 +121,11 @@ public class User implements Serializable
         return this.following.add(following);
     }
 
+    public void removeFollowing(User unfollower){
+        unfollower.followers.remove(this);
+        this.following.remove(unfollower);
+    }
+
 
     public Boolean addTweet(Tweet tweet)
     {

@@ -6,7 +6,7 @@ import kwetter.domain.Tweet;
  * Created by Niek on 1-3-14.
  */
 public class NewTweetEvent {
-    private final Tweet tweet;
+    private Tweet tweet;
 
     public NewTweetEvent(Tweet tweet)
     {
@@ -15,5 +15,9 @@ public class NewTweetEvent {
 
     public Tweet getTweet() {
         return tweet;
+    }
+
+    public void setTweet(Tweet tweet) {
+        this.tweet = tweet;
     }
 }

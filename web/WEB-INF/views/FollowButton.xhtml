@@ -4,4 +4,13 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
+    <h:panelGroup layout="block" rendered="#{sessionBean.authenticatedUser != null and sessionBean.authenticatedUser != profileBean.user}">
+
+        <!--Renders the unfollow button-->
+        <p:commandButton rendered="#{profileBean.alreadyFollowing}" styleClass="btn btn-warning" value="Unfollow #{profileBean.user.name}" actionListener="#{profileBean.followUnfollow}" update="#{update}"/>
+
+        <!--Renders the follow button-->
+        <p:commandButton rendered="#{!profileBean.alreadyFollowing}" styleClass="btn btn-success" value="Follow #{profileBean.user.name}" actionListener="#{profileBean.followUnfollow}" update="#{update}"/>
+    </h:panelGroup>
+
 </ui:composition>

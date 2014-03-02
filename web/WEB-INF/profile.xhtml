@@ -12,8 +12,9 @@
             <ui:include src="views/404.xhtml"/>
         </h:panelGroup>
 
-        <h:panelGroup value="profile" layout="block" rendered="#{profileBean.user != null}">
-            <h:form>
+        <h:panelGroup value="profile" id="fullProfile" layout="block" rendered="#{profileBean.user != null}">
+            <h:form id="profileBlock" name="profileBlock">
+
                 <div class="dashboard">
                     <div class="pill">
                         <div class="row text-center">
@@ -26,6 +27,25 @@
                             <div>
                                 <h:outputLabel value="#{profileBean.user.web}"/>
                             </div>
+
+                            <h:panelGroup layout="block"
+                                          rendered="#{sessionBean.authenticatedUser != null and sessionBean.authenticatedUser != profileBean.user}">
+
+                                <!--Renders the follow button-->
+                                <p:commandButton rendered="#{profileBean.alreadyFollowing}"
+                                                 styleClass="btn btn-danger"
+                                                 value="Unfollow #{profileBean.user.name}"
+                                                 actionListener="#{profileBean.followUnfollow}"
+                                                 update="profileBlock"/>
+
+                                <!--Renders the follow button-->
+                                <p:commandButton rendered="#{!profileBean.alreadyFollowing}"
+                                                 styleClass="btn btn-success"
+                                                 value="Follow #{profileBean.user.name}"
+                                                 actionListener="#{profileBean.followUnfollow}"
+                                                 update="profileBlock"/>
+                            </h:panelGroup>
+
                         </div>
                     </div>
                     <div class="pill" id="profileInfo">
@@ -46,7 +66,7 @@
                                                value="#{fn:length(profileBean.user.followers)} Followers"/>
                             </p:commandLink>
                         </div>
-                        
+
                         <!--Show tweet link-->
                         <div class="tweetInfo">
                             <p:commandLink id="showTweets" update="contentPanel"
@@ -81,9 +101,10 @@
                                       rendered="#{profileBean.loadTweets}">
 
                             <ui:include src="views/tweetTable.xhtml">
-                                    <ui:param name="datasource" value="#{profileBean.tweets}"/>
-                                    <ui:param name="header" value="#{profileBean.user.name}'s tweets"/>
-                                    <ui:param name="emptyText" value="#{profileBean.user.name} has not tweeted anything yet."/>
+                                <ui:param name="datasource" value="#{profileBean.tweets}"/>
+                                <ui:param name="header" value="#{profileBean.user.name}'s tweets"/>
+                                <ui:param name="emptyText"
+                                          value="#{profileBean.user.name} has not tweeted anything yet."/>
                             </ui:include>
                         </h:panelGroup>
 
