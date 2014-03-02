@@ -112,7 +112,9 @@ public class HomeBean {
 
         if (this.newTweetContents.isEmpty()) return;
 
-        newTweetEvent.fire(new NewTweetEvent(new Tweet(session.getAuthenticatedUser(), newTweetContents, new Date(), "pc")));
+        User userPosting = service.find(session.getAuthenticatedUser().getId());
+
+        newTweetEvent.fire(new NewTweetEvent(new Tweet(userPosting, newTweetContents, new Date(), "pc")));
         newTweetContents = "";
     }
 

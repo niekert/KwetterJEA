@@ -28,9 +28,6 @@ import java.util.regex.Pattern;
 public class TweetDAO_JPAImpl implements TweetDAO
 {
 
-    @Inject
-    private UserDAO userDAO;
-
     @PersistenceContext(unitName = "pu")
     private EntityManager em;
 
@@ -49,26 +46,10 @@ public class TweetDAO_JPAImpl implements TweetDAO
         Pattern mentionPattern = Pattern.compile(Constants.MENTIONS_REGEX, Pattern.CASE_INSENSITIVE);
         Pattern hashtagPattern = Pattern.compile(Constants.HASHTAG_REGEX);
 
-        Matcher matcher = mentionPattern.matcher(tweet.getContent());
+        Matcher matcher = hashtagPattern.matcher(tweet.getContent());
 
-
-        Set<String> mentions = new CaseInsensitiveSet();
-        while(matcher.find()){
-            mentions.add(matcher.group());
-        }
-
-        //Loop through the mentions
-        for (String mention :mentions)
-        {
-            User mentionedUser = userDAO.find(mention.substring(1));
-
-            if(mentionedUser != null){
-                tweet.getMentions().add(mentionedUser);
-            }
-        }
 
         Set<String> hashtags = new HashSet<String>();
-        matcher = hashtagPattern.matcher(tweet.getContent());
         while(matcher.find()){
             hashtags.add(matcher.group());
         }
@@ -84,6 +65,8 @@ public class TweetDAO_JPAImpl implements TweetDAO
                 this.hashtagCollection.put(tag, tweetList);
             }
         }
+        em.merge(tweet.getUser());
+
 
         em.persist(tweet);
     }

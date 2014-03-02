@@ -16,7 +16,11 @@ public interface UserDAO {
 
     User find(Long id);
 
-    User find(String name);
+    User findByName(String name);
 
     void remove(User user);
+
+    boolean addFollowing(User invokingUser, User targetedUser);
+
+    boolean removeFollowing(User invokingUser, User targetUser);
 }

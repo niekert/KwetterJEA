@@ -9,23 +9,29 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "tweet")
 public class Tweet implements Serializable, Comparable<Tweet>{
     private static final long serialVersionUID = 2L;
 
+    @Column(name = "id")
     @Id @GeneratedValue
     private Long ID;
 
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "post_date")
     @Temporal( TemporalType.DATE )
     private Date postDate;
 
+    @Column(name = "posted_from")
     private String postedFrom;
 
     @OneToMany
     private List<User> mentions = new ArrayList<User>();
 
-    @OneToOne
+    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User user;
 
     public Tweet() {

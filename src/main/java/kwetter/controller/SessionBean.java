@@ -30,7 +30,9 @@ public class SessionBean implements Serializable {
 
 
     public User getAuthenticatedUser() {
-        return authenticatedUser;
+        if(this.authenticatedUser == null) return null;
+
+       return service.find(this.authenticatedUser.getId());
     }
 
     public void setAuthenticatedUser(User authenticatedUser) {

@@ -53,13 +53,23 @@ public class UserDAOCollectionImpl implements UserDAO, Serializable
     }
 
     @Override
+    public boolean addFollowing(User invokingUser, User targetedUser) {
+        return false;
+    }
+
+    @Override
+    public boolean removeFollowing(User invokingUser, User targetUser) {
+        return false;
+    }
+
+    @Override
     public User find(Long id)
     {
         throw new NotImplementedException();
     }
 
     @Override
-    public User find(String name)
+    public User findByName(String name)
     {
         User foundUser = null;
         for (User user : users)

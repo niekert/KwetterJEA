@@ -9,26 +9,39 @@ import java.util.List;
 
 
 @Entity
+@Table(name="user")
 public class User implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "web")
     private String web;
+
+    @Column(name = "bio")
     private String bio;
 
-    @OneToMany
+    @JoinTable(name = "followers", joinColumns = {
+            @JoinColumn(name = "followers")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "following")
+    })
+    @ManyToMany
     private List<User> following = new ArrayList();
 
-    @OneToMany
-    private List<Tweet> tweets = new ArrayList();
 
-    @OneToMany
+    @ManyToMany(mappedBy = "following")
     private List<User> followers = new ArrayList<User>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Tweet> tweets = new ArrayList();
 
     public User()
     {
@@ -111,17 +124,6 @@ public class User implements Serializable
         this.tweets = tweets;
     }
 
-
-    public Boolean addFollowing(User following)
-    {
-        following.followers.add(this);
-        return this.following.add(following);
-    }
-
-    public void removeFollowing(User unfollower){
-        unfollower.followers.remove(this);
-        this.following.remove(unfollower);
-    }
 
 
     public Boolean addTweet(Tweet tweet)

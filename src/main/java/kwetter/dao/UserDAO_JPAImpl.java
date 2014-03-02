@@ -15,6 +15,9 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 
 @Singleton
@@ -56,6 +59,27 @@ public class UserDAO_JPAImpl implements UserDAO
         em.remove(user);
     }
 
+    @Override
+    public boolean addFollowing(User invokingUser, User targetedUser) {
+        targetedUser.getFollowers().add(invokingUser);
+        invokingUser.getFollowing().add(targetedUser);
+
+        em.merge(invokingUser);
+        em.merge(targetedUser);
+        return true;
+    }
+
+    @Override
+    public boolean removeFollowing(User invokingUser, User targetUser) {
+        targetUser.getFollowers().remove(invokingUser);
+        invokingUser.getFollowing().remove(targetUser);
+
+        em.merge(invokingUser);
+        em.merge(targetUser);
+
+        return true;
+    }
+
     public User find(Long id)
     {
         Query q = em.createQuery("select user from User user where user.id = :id");
@@ -65,15 +89,14 @@ public class UserDAO_JPAImpl implements UserDAO
         return usersFound.isEmpty() ? null : usersFound.get(0);
     }
 
-    public User find(String name)
+    @Override
+    public User findByName(String name)
     {
-        Query q = em.createQuery("select user from User user where user.name = :name");
-        q.setParameter("name", name);
+        Query newQuery = this.em.createQuery("Select user from User as user where user.name = :name");
+        newQuery.setParameter("name", name);
 
-
-        List<User> usersFound = q.getResultList();
-        return usersFound.isEmpty() ? null : usersFound.get(0);
-
+        Object o = newQuery.getSingleResult();
+        return o == null ? null : (User) o;
     }
 
 }

@@ -55,7 +55,7 @@ public class TweetDAOCollectionImpl implements TweetDAO, Serializable
         //Loop through the mentions
         for (String mention :mentions)
         {
-            User mentionedUser = userDAO.find(mention.substring(1));
+            User mentionedUser = userDAO.findByName(mention.substring(1));
 
             if(mentionedUser != null){
                 tweet.getMentions().add(mentionedUser);
