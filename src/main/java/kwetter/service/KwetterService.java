@@ -11,6 +11,7 @@ import kwetter.events.AuthenticationEvent;
 import kwetter.events.FollowingChangedEvent;
 import kwetter.events.NewTweetEvent;
 import kwetter.interceptors.TweetInterceptor;
+import kwetter.qualifiers.JPAQualifier;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -25,10 +26,10 @@ import javax.interceptor.Interceptors;
 @Stateful
 public class KwetterService implements Serializable {
 
-    @Inject
+    @Inject @JPAQualifier
     private UserDAO userDAO;
 
-    @Inject
+    @Inject @JPAQualifier
     private TweetDAO tweetDao;
 
 

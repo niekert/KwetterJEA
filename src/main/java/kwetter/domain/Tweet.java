@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Tweet")
+@Entity
 public class Tweet implements Serializable, Comparable<Tweet>{
     private static final long serialVersionUID = 2L;
 
@@ -16,7 +16,10 @@ public class Tweet implements Serializable, Comparable<Tweet>{
     private Long ID;
 
     private String content;
+
+    @Temporal( TemporalType.DATE )
     private Date postDate;
+
     private String postedFrom;
 
     @OneToMany

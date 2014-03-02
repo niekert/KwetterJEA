@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import kwetter.domain.User;
+import kwetter.qualifiers.JPAQualifier;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
@@ -18,7 +19,8 @@ import javax.persistence.PersistenceContext;
 
 @Singleton
 @Stateless
-public class UserDAO_JPAImpl
+@JPAQualifier
+public class UserDAO_JPAImpl implements UserDAO
 {
 
     @PersistenceContext(unitName = "pu")

@@ -2,9 +2,13 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="pu" transaction-type="JTA">
-        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/KwetterTest</jta-data-source>
         <class>kwetter.domain.Tweet</class>
         <class>kwetter.domain.User</class>
+        <properties>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+        </properties>
     </persistence-unit>
 </persistence>

@@ -2,12 +2,14 @@ package kwetter.dao;
 
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
+import kwetter.qualifiers.JPAQualifier;
 import kwetter.utils.CaseInsensitiveSet;
 import kwetter.utils.Constants;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,7 +23,9 @@ import java.util.regex.Pattern;
  */
 
 @Singleton
-public class TweetDAO_JPAImpl
+@Stateless
+@JPAQualifier
+public class TweetDAO_JPAImpl implements TweetDAO
 {
 
     @Inject
@@ -103,7 +107,9 @@ public class TweetDAO_JPAImpl
 
     public Tweet find(Long id)
     {
-        throw new NotImplementedException();
+        Tweet tweet = em.find(Tweet.class, id);
+
+        return tweet;
     }
 
     public List<Tweet> findTweets(String contains)
