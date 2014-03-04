@@ -34,6 +34,7 @@ public class TweetDAO_JPAImpl implements TweetDAO
     private HashMap<String, List<Tweet>> hashtagCollection = new HashMap<String, List<Tweet>>();
 
 
+
     public int count()
     {
         Query query = em.createQuery("select count(tweet) from Tweet tweet");
@@ -133,6 +134,7 @@ public class TweetDAO_JPAImpl implements TweetDAO
     public List<Tweet> getTweetsFromHashtag(String tag) {
         return this.hashtagCollection.get(tag);
     }
+
 
     public Map<String, Integer> getCurrentTrends() {
         HashMap<String, Integer> tagsAndOccurrences = new HashMap<String, Integer>();
