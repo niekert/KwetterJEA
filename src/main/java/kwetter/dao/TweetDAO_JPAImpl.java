@@ -137,11 +137,43 @@ public class TweetDAO_JPAImpl implements TweetDAO
 
 
     public Map<String, Integer> getCurrentTrends() {
-        HashMap<String, Integer> tagsAndOccurrences = new HashMap<String, Integer>();
-        for (Map.Entry<String, List<Tweet>> entry : this.hashtagCollection.entrySet()) {
-            tagsAndOccurrences.put(entry.getKey(), entry.getValue().size());
+        HashMap<String, Integer> resultSet = new HashMap<String, Integer>();
+
+        TagComparator comparer = new TagComparator(this.hashtagCollection);
+
+        TreeMap<String, List<Tweet>> sortedMap = new TreeMap<String, List<Tweet>>(comparer);
+        sortedMap.putAll(this.hashtagCollection);
+
+
+        int i = sortedMap.size();
+        if(i > 10){
+            i = 10;
+        }
+        for (Map.Entry<String, List<Tweet>> entry : sortedMap.entrySet()) {
+            if(i == 0){
+                break;
+            }
+            resultSet.put(entry.getKey(), i);
+            i--;
         }
 
-        return tagsAndOccurrences;
+        return resultSet;
+    }
+
+    class TagComparator implements Comparator<String> {
+
+        Map<String, List<Tweet>> base;
+        public TagComparator(Map<String, List<Tweet>> base){
+            this.base =base;
+        }
+
+        @Override
+        public int compare(String o1, String o2) {
+            if(base.get(o1).size() >= base.get(o2).size()){
+                return -1;
+            } else {
+                return 1;
+            }
+        }
     }
 }

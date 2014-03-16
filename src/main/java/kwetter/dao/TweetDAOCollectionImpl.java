@@ -1,7 +1,5 @@
 package kwetter.dao;
 
-import com.google.common.base.Functions;
-import com.google.common.collect.Ordering;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.utils.CaseInsensitiveSet;
@@ -9,7 +7,6 @@ import kwetter.utils.Constants;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
-import javax.ejb.Stateful;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.*;

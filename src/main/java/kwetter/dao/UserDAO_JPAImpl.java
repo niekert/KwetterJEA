@@ -1,23 +1,14 @@
 package kwetter.dao;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import kwetter.domain.User;
 import kwetter.qualifiers.JPAQualifier;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.Query;
+import java.util.List;
 
 
 @Singleton
@@ -92,11 +83,11 @@ public class UserDAO_JPAImpl implements UserDAO
     @Override
     public User findByName(String name)
     {
-        Query newQuery = this.em.createQuery("Select user from User as user where user.name = :name");
+        Query newQuery = this.em.createQuery("Select user from User user where user.name = :name");
         newQuery.setParameter("name", name);
 
-        Object o = newQuery.getSingleResult();
-        return o == null ? null : (User) o;
+        List<User> usersFound = newQuery.getResultList();
+        return usersFound.isEmpty() ? null : usersFound.get(0);
     }
 
 }

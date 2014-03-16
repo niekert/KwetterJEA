@@ -6,6 +6,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="KwetterJEA" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/classes/META-INF/input.json" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Mojarra-2.2.1" />
@@ -14,12 +15,14 @@
           <element id="library" level="project" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:2.0.10.Final" />
           <element id="library" level="project" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:2.0.10.Final" />
           <element id="library" level="project" name="Maven: org.ocpsoft.rewrite:rewrite-integration-faces:2.0.10.Final" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
         </element>
         <element id="library" level="project" name="Maven: org.primefaces:primefaces:4.0" />
       </element>
       <element id="library" level="project" name="Maven: org.primefaces:primefaces:4.0" />
       <element id="library" level="project" name="Mojarra-2.2.1" />
       <element id="library" level="project" name="Maven: org.primefaces.themes:all-themes:1.0.10" />
+      <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
     </root>
   </artifact>
 </component>
