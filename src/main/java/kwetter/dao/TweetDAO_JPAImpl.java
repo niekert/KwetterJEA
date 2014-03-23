@@ -3,14 +3,11 @@ package kwetter.dao;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.qualifiers.JPAQualifier;
-import kwetter.utils.CaseInsensitiveSet;
 import kwetter.utils.Constants;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -48,7 +45,6 @@ public class TweetDAO_JPAImpl implements TweetDAO
     public void create(Tweet tweet)
     {
 
-        Pattern mentionPattern = Pattern.compile(Constants.MENTIONS_REGEX, Pattern.CASE_INSENSITIVE);
         Pattern hashtagPattern = Pattern.compile(Constants.HASHTAG_REGEX);
 
         Matcher matcher = hashtagPattern.matcher(tweet.getContent());

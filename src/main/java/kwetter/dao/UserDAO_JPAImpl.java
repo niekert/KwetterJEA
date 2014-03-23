@@ -2,6 +2,8 @@ package kwetter.dao;
 
 import kwetter.domain.User;
 import kwetter.qualifiers.JPAQualifier;
+import kwetter.utils.Utilities;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
 import javax.ejb.Stateless;
@@ -88,6 +90,17 @@ public class UserDAO_JPAImpl implements UserDAO
 
         List<User> usersFound = newQuery.getResultList();
         return usersFound.isEmpty() ? null : usersFound.get(0);
+    }
+
+    @Override
+    public User registerNewUser(String username, String email, String password){
+
+        String hashedPassword = Utilities.hashPassword(password);
+
+        User newUser = new User(username, "http", "Swaggerbuoi", email, hashedPassword);
+        em.persist(newUser);
+
+        return newUser;
     }
 
 }

@@ -1,7 +1,7 @@
 package kwetter.dao;
 
-import kwetter.domain.Tweet;
 import kwetter.domain.User;
+
 import java.util.List;
 
 public interface UserDAO {
@@ -23,4 +23,6 @@ public interface UserDAO {
     boolean addFollowing(User invokingUser, User targetedUser);
 
     boolean removeFollowing(User invokingUser, User targetUser);
+
+    User registerNewUser(String username, String email, String password);
 }

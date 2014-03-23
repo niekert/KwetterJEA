@@ -1,5 +1,9 @@
 package kwetter.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 /**
@@ -42,5 +46,24 @@ public class Utilities
         } else {
             return diff / DAY_MILLIS + " days ago";
         }
+    }
+
+    public static String hashPassword(String password) {
+        String output = "";
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            BigInteger bigInt = new BigInteger(1, digest);
+            output = bigInt.toString(16);
+
+            System.out.println(output);
+
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
+
+        return output;
     }
 }

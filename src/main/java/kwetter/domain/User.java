@@ -1,5 +1,7 @@
 package kwetter.domain;
 
+import kwetter.utils.Utilities;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,11 +24,20 @@ public class User implements Serializable
     @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "web")
     private String web;
 
     @Column(name = "bio")
     private String bio;
+
+    @Column(name = "actionvationLink")
+    private String activationLink;
 
     @JoinTable(name = "followers", joinColumns = {
             @JoinColumn(name = "followers")
@@ -43,6 +54,9 @@ public class User implements Serializable
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tweet> tweets = new ArrayList();
 
+    @ManyToMany
+    private List<Role> roles;
+
     public User()
     {
     }
@@ -52,11 +66,22 @@ public class User implements Serializable
         this.name = naam;
     }
 
-    public User(String naam, String web, String bio)
+    public User(String naam, String web, String bio, String email, String plainTextPassword)
     {
         this.name = naam;
         this.web = web;
         this.bio = bio;
+        this.email = email;
+        this.password = plainTextPassword;
+        this.activationLink = Utilities.hashPassword(naam + email);
+    }
+
+    public User(String naam, String web, String bio){
+        this.name = naam;
+        this.web = web;
+        this.bio = bio;
+        this.email = "MockEmail@gmail.com";
+        this.password = " password";
     }
 
     public Long getId() {
@@ -73,14 +98,36 @@ public class User implements Serializable
         this.followers = followers;
     }
 
-    public String getBio()
-    {
-        return bio;
+    public String getEmail() {
+        return email;
     }
 
-    public void setBio(String bio)
-    {
-        this.bio = bio;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getActivationLink() {
+        return activationLink;
+    }
+
+    public void setActivationLink(String activationLink) {
+        this.activationLink = activationLink;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public String getName()
@@ -130,6 +177,7 @@ public class User implements Serializable
     {
         return this.tweets.add(tweet);
     }
+
 
     @Override
     public int hashCode()

@@ -1,10 +1,5 @@
 package kwetter.service;
 
-import java.io.Serializable;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import kwetter.dao.TweetDAO;
 import kwetter.dao.UserDAO;
 import kwetter.domain.Tweet;
@@ -17,12 +12,24 @@ import kwetter.qualifiers.JPAQualifier;
 import kwetter.utils.CaseInsensitiveSet;
 import kwetter.utils.Constants;
 
+import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.mail.*;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 
 @Startup
@@ -35,6 +42,9 @@ public class KwetterService implements Serializable {
 
     @Inject @JPAQualifier
     private TweetDAO tweetDao;
+
+    @Resource(name = "mail/kwetter")  private Session session;
+
 
 
     /**
@@ -189,6 +199,27 @@ public class KwetterService implements Serializable {
         tweetDao.create(postedTweet);
     }
 
+    public void registerNewUser(String username, String email, String password) throws MessagingException, UnsupportedEncodingException{
+
+        User newUser = userDAO.registerNewUser(username, email, password);
+
+        //Send an activation email
+       this.sendActivationEmail(newUser);
+    }
+
+    private void sendActivationEmail(User user) throws MessagingException, UnsupportedEncodingException
+    {
+        // Create email and headers.
+        Message msg = new MimeMessage(session);
+        msg.setSubject("Kwetter activation");
+        msg.setRecipient(RecipientType.TO,  new InternetAddress(user.getEmail(), user.getName()));
+        msg.setFrom(new InternetAddress("koenkanters94@gmail.com", "Kwetter"));
+        // Body text.
+        String activationlink = "http://localhost:8080/kwetter/activate?id=" + user.getActivationLink();
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText("Please press the following activation link to activate your account " + activationlink );
+        Transport.send(msg);
+    }
     /**
      * Initializes users and tweets for testing purposes.
      */

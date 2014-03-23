@@ -32,6 +32,7 @@ public class ProfileBean implements Serializable {
 
     @Inject
     private KwetterService service;
+
     private boolean loadTweets = true;
     private User user;
     private List<User> renderedUsers = new ArrayList<User>();

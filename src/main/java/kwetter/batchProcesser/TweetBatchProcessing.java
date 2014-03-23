@@ -1,4 +1,4 @@
-package batchProcesser;
+package kwetter.batchProcesser;
 
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
@@ -18,7 +18,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by Niek on 16-3-14.

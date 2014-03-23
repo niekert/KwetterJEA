@@ -3,7 +3,6 @@ package kwetter.dao;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

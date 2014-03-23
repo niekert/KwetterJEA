@@ -4,35 +4,109 @@
                 xmlns:c="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
 
-    <c:form id="#{id}_loginform" styleClass="form-horizontal">
-        <h4>Log in to Kwetter</h4>
+    <f:verbatim>
+        <script>
+            $(document).ready(function () {
+                $(".btnToRegister").click(function () {
+                    $(".loginContainer").hide();
+                    $(".registerContainer").fadeIn();
+                });
+
+                $(".btnToLogin").click(function () {
+                    $(".registerContainer").hide();
+                    $(".loginContainer").fadeIn();
+                });
+            });
+        </script>
+    </f:verbatim>
 
 
-        <c:panelGroup layout="block" styleClass="alert alert-danger" rendered="#{authenticationBean.loginFailed}">
-            The username and/or password you entered is incorrect.
-        </c:panelGroup>
+    <div id="authenticationcontainer">
+        <div id="#{id}_loginContainer" class="loginContainer">
+            <c:form id="#{id}_loginform" styleClass="form-horizontal">
+                <h4>Log in to Kwetter</h4>
 
-        <div class="form-group">
-            <label for="txtUserName" class="col-sm-2 control-label">Username</label>
 
-            <div class="col-sm-10">
-                <p:inputText id="txtUserName" styleClass="form-control" value="#{authenticationBean.username}"/>
-            </div>
+                <c:panelGroup layout="block" styleClass="alert alert-danger"
+                              rendered="#{authenticationBean.loginFailed}">
+                    The username and/or password you entered is incorrect.
+                </c:panelGroup>
+
+                <div class="form-group">
+                    <label for="txtUserName" class="col-sm-2 control-label">Username</label>
+
+                    <div class="col-sm-10">
+                        <p:inputText id="txtUserName" styleClass="form-control" value="#{authenticationBean.username}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtPassword" class="col-sm-2 control-label">Password</label>
+
+                    <div class="col-sm-10">
+                        <p:inputText id="txtPassword" styleClass="form-control" value="#{authenticationBean.password}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p:commandButton value="Login" update="#{id}_loginform" styleClass="btn btn-success"
+                                         actionListener="#{authenticationBean.AuthenticatePerson()}"/>
+                        <button id="#{id}_btnShowregister" onclick="return false;" class="btn btn-default btnToRegister"
+                                value="Register">Register
+                        </button>
+                    </div>
+                </div>
+
+            </c:form>
         </div>
+        <div id="#{id}_registerContainer" class="registerContainer" style="display: none">
+            <c:form id="#{id}_registerForm" styleClass="form-horizontal">
+                <h4>Register at Kwetter</h4>
 
-        <div class="form-group">
-            <label for="txtPassword" class="col-sm-2 control-label">Password</label>
+                <c:panelGroup layout="block" styleClass="alert alert-danger"
+                              rendered="#{registrationBean.registrationError != null}">
+                    #{registrationBean.registrationError}
+                </c:panelGroup>
 
-            <div class="col-sm-10">
-                <p:inputText id="txtPassword" styleClass="form-control" value="#{authenticationBean.password}"/>
-            </div>
+                <div class="form-group">
+                    <label for="#{id}_txtRegisterUsername" class="col-sm-2 control-label">Username</label>
+
+                    <div class="col-sm-10">
+                        <p:inputText id="#{id}_txtRegisterUsername" styleClass="form-control"
+                                     value="#{registrationBean.username}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="#{id}_txtRegisterEmail" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-10">
+                        <p:inputText id="#{id}_txtRegisterEmail" styleClass="form-control"
+                                     value="#{registrationBean.email}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="#{id}_txtRegisterPassword" class="col-sm-2 control-label">Password</label>
+
+                    <div class="col-sm-10">
+                        <p:password id="#{id}_txtRegisterPassword" styleClass="form-control"
+                                    value="#{registrationBean.password}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p:commandButton value="Register" update="#{id}_registerForm" styleClass="btn btn-success"
+                                         actionListener="#{registrationBean.Register()}"/>
+                        <button id="#{id}_btnShowRegister" onclick="return false;" class="btnToLogin btn btn-default"
+                                value="Login">Back to Login
+                        </button>
+                    </div>
+                </div>
+
+            </c:form>
         </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <p:commandButton value="Login" update="#{id}_loginform" styleClass="btn btn-default" actionListener="#{authenticationBean.AuthenticatePerson()}"/>
-            </div>
-        </div>
-
-    </c:form>
+    </div>
 </ui:composition>

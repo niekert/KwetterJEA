@@ -1,15 +1,12 @@
 package kwetter.dao;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import kwetter.domain.User;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
-import javax.ejb.Stateful;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Singleton
 public class UserDAOCollectionImpl implements UserDAO, Serializable
@@ -60,6 +57,11 @@ public class UserDAOCollectionImpl implements UserDAO, Serializable
     @Override
     public boolean removeFollowing(User invokingUser, User targetUser) {
         return false;
+    }
+
+    @Override
+    public User registerNewUser(String username, String email, String password) {
+        return null;
     }
 
     @Override

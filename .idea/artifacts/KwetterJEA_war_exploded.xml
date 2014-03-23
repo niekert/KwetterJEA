@@ -7,6 +7,7 @@
         <element id="directory" name="classes">
           <element id="module-output" name="KwetterJEA" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/classes/META-INF/input.json" />
+          <element id="jpa-descriptors" facet="KwetterJEA/jpa/JPA" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Mojarra-2.2.1" />
