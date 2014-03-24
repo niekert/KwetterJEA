@@ -19,17 +19,21 @@ import javax.ejb.Stateful;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import javax.mail.*;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
+import javax.mail.Transport;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 
 
 @Startup
@@ -37,18 +41,21 @@ import java.util.regex.Pattern;
 @Stateful
 public class KwetterService implements Serializable {
 
-    @Inject @JPAQualifier
+    @Inject
+    @JPAQualifier
     private UserDAO userDAO;
 
-    @Inject @JPAQualifier
+    @Inject
+    @JPAQualifier
     private TweetDAO tweetDao;
 
-    @Resource(name = "mail/kwetter")  private Session session;
-
+    @Resource(name = "mail/kwetter")
+    private Session session;
 
 
     /**
      * Creates a new user in the DAO
+     *
      * @param user User object to persist
      */
     public void create(User user) {
@@ -57,6 +64,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Edits the user specified
+     *
      * @param user edit
      */
     public void edit(User user) {
@@ -65,10 +73,10 @@ public class KwetterService implements Serializable {
 
     /**
      * Authenticates a user, based on username (and password in the future)
+     *
      * @param username Username specified
      * @param password password
-     * @return
-     * TODO: Password authentication
+     * @return TODO: Password authentication
      */
     public User authenticateUser(String username, String password) {
         if (username.isEmpty()) {
@@ -81,6 +89,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Remove the user specified from the database
+     *
      * @param user User to remove
      */
     public void remove(User user) {
@@ -89,6 +98,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Finds all tweets with search text specified
+     *
      * @param searchText Tweet contents to search for
      * @return
      */
@@ -98,6 +108,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Find all existing users
+     *
      * @return All existing users in a list
      */
     public List<User> findAll() {
@@ -106,6 +117,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Find a user based on the identifier
+     *
      * @param id Identifier of the user
      * @return Found user
      */
@@ -115,6 +127,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Find a user based on name
+     *
      * @param name Username of user
      * @return The user found
      */
@@ -124,6 +137,7 @@ public class KwetterService implements Serializable {
 
     /**
      * Count the number of users
+     *
      * @return
      */
     public int count() {
@@ -132,66 +146,68 @@ public class KwetterService implements Serializable {
 
     /**
      * Get the current trending tweets (hashtags)
+     *
      * @return
      */
-    public Map<String, Integer> getCurrentTrends(){
+    public Map<String, Integer> getCurrentTrends() {
         return tweetDao.getCurrentTrends();
     }
 
     /**
      * Creates the timeline for the user
      * TODO: Use efficient query
+     *
      * @param user User ti create tge timeline for
      * @return
      */
-    public List<Tweet> getTimeline(User user){
+    public List<Tweet> getTimeline(User user) {
         List<Tweet> timelineTweets = new ArrayList<Tweet>();
-        for (User existingUser : userDAO.findAll())
-        {
-            if(user.getFollowing().contains(existingUser) || user.equals(existingUser)){
-                for (Tweet tweet : existingUser.getTweets())
-                {
+        for (User existingUser : userDAO.findAll()) {
+            if (user.getFollowing().contains(existingUser) || user.equals(existingUser)) {
+                for (Tweet tweet : existingUser.getTweets()) {
                     timelineTweets.add(tweet);
                 }
 
             }
         }
 
-        List<Tweet> sortedTweets = new ArrayList<Tweet>(timelineTweets); Collections.sort(sortedTweets);
+        List<Tweet> sortedTweets = new ArrayList<Tweet>(timelineTweets);
+        Collections.sort(sortedTweets);
         return sortedTweets;
 
     }
 
     /**
      * Get the tweets in which the user specified is mentioned
+     *
      * @param user user to get mentions from
      * @return
      */
-    public List<Tweet> getMentions(User user){
+    public List<Tweet> getMentions(User user) {
         return tweetDao.findMentions(user);
     }
 
     /**
      * Post a new tweet and save it
+     *
      * @param postedTweet The tweet posted
      */
-    public void postNewTweet(Tweet postedTweet){
+    public void postNewTweet(Tweet postedTweet) {
         Pattern mentionPattern = Pattern.compile(Constants.MENTIONS_REGEX, Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = mentionPattern.matcher(postedTweet.getContent());
 
         Set<String> mentions = new CaseInsensitiveSet();
-        while(matcher.find()){
+        while (matcher.find()) {
             mentions.add(matcher.group());
         }
 
         //Loop through the mentions
-        for (String mention :mentions)
-        {
+        for (String mention : mentions) {
             User mentionedUser = null;
-             mentionedUser = userDAO.findByName(mention.substring(1));
+            mentionedUser = userDAO.findByName(mention.substring(1));
 
-            if(mentionedUser != null){
+            if (mentionedUser != null) {
                 postedTweet.getMentions().add(mentionedUser);
             }
         }
@@ -199,27 +215,32 @@ public class KwetterService implements Serializable {
         tweetDao.create(postedTweet);
     }
 
-    public void registerNewUser(String username, String email, String password) throws MessagingException, UnsupportedEncodingException{
+    public void registerNewUser(String username, String email, String password) throws MessagingException, UnsupportedEncodingException {
 
         User newUser = userDAO.registerNewUser(username, email, password);
 
         //Send an activation email
-       this.sendActivationEmail(newUser);
+        this.sendActivationEmail(newUser);
     }
 
-    private void sendActivationEmail(User user) throws MessagingException, UnsupportedEncodingException
-    {
-        // Create email and headers.
-        Message msg = new MimeMessage(session);
-        msg.setSubject("Kwetter activation");
-        msg.setRecipient(RecipientType.TO,  new InternetAddress(user.getEmail(), user.getName()));
-        msg.setFrom(new InternetAddress("koenkanters94@gmail.com", "Kwetter"));
-        // Body text.
-        String activationlink = "http://localhost:8080/kwetter/activate?id=" + user.getActivationLink();
-        BodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setText("Please press the following activation link to activate your account " + activationlink );
-        Transport.send(msg);
+    private void sendActivationEmail(User user) {
+        try {
+            // Create email and headers.
+            Message msg = new MimeMessage(session);
+            msg.setSubject("Kwetter activation");
+            msg.setRecipient(RecipientType.TO, new InternetAddress(user.getEmail(), user.getName()));
+            msg.setFrom(new InternetAddress("jenkins@niekkruse.nl", "Kwetter"));
+            // Body text.
+            String activationlink = "http://localhost:8080/kwetter/activate?id=" + user.getActivationLink();
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText("Please press the following activation link to activate your account " + activationlink);
+
+            Transport.send(msg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
     /**
      * Initializes users and tweets for testing purposes.
      */
@@ -245,18 +266,18 @@ public class KwetterService implements Serializable {
         Tweet t2 = new Tweet(u1, "New Flappy bird highscore #HashTag #Highscore", new Date(), "PC");
         Tweet t3 = new Tweet(u1, "Niet", new Date(), "PC");
         Tweet t4 = new Tweet(u1, "Sittin' on a toilet", new Date(), "PC");
-        Tweet t5 = new Tweet(u1,"Sittin' on a toilet", new Date(), "PC");
+        Tweet t5 = new Tweet(u1, "Sittin' on a toilet", new Date(), "PC");
         Tweet t6 = new Tweet(u2, "Sittin' on a toilet", new Date(), "PC");
         Tweet t7 = new Tweet(u1, "Jawel", new Date(), "PC");
-        Tweet t8 = new Tweet(u3,"Nee", new Date(), "PC");
+        Tweet t8 = new Tweet(u3, "Nee", new Date(), "PC");
         Tweet t9 = new Tweet(u4, "Joooo", new Date(), "PC");
         Tweet t10 = new Tweet(u3, "Tweet", new Date(), "PC");
         Tweet t11 = new Tweet(u4, "Twitter is better", new Date(), "PC");
-        Tweet t12 = new Tweet(u1,"Twitter is better", new Date(), "PC");
-        Tweet t13 = new Tweet(u2,"Twitter is better than #Kwetter", new Date(), "PC");
-        Tweet t14 = new Tweet(u3,"Twitter is better than #Kwetter", new Date(), "PC");
-        Tweet t15 = new Tweet(u3,"Twitter is better", new Date(), "PC");
-        Tweet t16 = new Tweet(u3,"Twitter is better", new Date(), "PC");
+        Tweet t12 = new Tweet(u1, "Twitter is better", new Date(), "PC");
+        Tweet t13 = new Tweet(u2, "Twitter is better than #Kwetter", new Date(), "PC");
+        Tweet t14 = new Tweet(u3, "Twitter is better than #Kwetter", new Date(), "PC");
+        Tweet t15 = new Tweet(u3, "Twitter is better", new Date(), "PC");
+        Tweet t16 = new Tweet(u3, "Twitter is better", new Date(), "PC");
         Tweet t17 = new Tweet(u4, "Twitter is better", new Date(), "PC");
         this.postNewTweet(t1);
         this.postNewTweet(t2);
@@ -279,12 +300,12 @@ public class KwetterService implements Serializable {
 
     /**
      * Executed when an AuthenticationEvent is detected
+     *
      * @param event
      */
-    public void onAuthenticationEvent(@Observes AuthenticationEvent event){
+    public void onAuthenticationEvent(@Observes AuthenticationEvent event) {
 
-        switch (event.getAuthenticationType())
-        {
+        switch (event.getAuthenticationType()) {
             case SIGNIN:
                 System.out.println("User: " + event.getUsername() + " Tried authenticating at " + event.getTime().toString());
                 break;
@@ -297,12 +318,12 @@ public class KwetterService implements Serializable {
 
     /**
      * Fired when a followChangeEvent is detected
+     *
      * @param event
      */
-    public void onFollowChangeEvent(@Observes FollowingChangedEvent event)
-    {
+    public void onFollowChangeEvent(@Observes FollowingChangedEvent event) {
         //If user invoking is already following, remove the users
-        if(event.getInvokingUser().getFollowing().contains(event.getTargetedUser())){
+        if (event.getInvokingUser().getFollowing().contains(event.getTargetedUser())) {
             userDAO.removeFollowing(event.getInvokingUser(), event.getTargetedUser());
             System.out.println(event.getInvokingUser().getName() + " Unfollowed " + event.getTargetedUser().getName());
         }
@@ -316,10 +337,11 @@ public class KwetterService implements Serializable {
 
     /**
      * Executed when a newtweetpost event is detected
+     *
      * @param event
      */
     @Interceptors(TweetInterceptor.class)
-    public void onNewTweetPostEvent(@Observes NewTweetEvent event){
+    public void onNewTweetPostEvent(@Observes NewTweetEvent event) {
         this.postNewTweet(event.getTweet());
         System.out.println("A new tweet was poted at: " + event.getTweet().getDatum().toString());
     }

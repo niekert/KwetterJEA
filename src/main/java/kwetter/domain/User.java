@@ -54,7 +54,7 @@ public class User implements Serializable
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tweet> tweets = new ArrayList();
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.PERSIST)
     private List<Role> roles;
 
     public User()

@@ -4,6 +4,7 @@ import kwetter.domain.User;
 import kwetter.events.AuthenticationEvent;
 import kwetter.service.KwetterService;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
@@ -12,6 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Niek on 12/02/14.
@@ -39,7 +43,7 @@ public class SessionBean implements Serializable {
         this.authenticatedUser = authenticatedUser;
     }
 
-    public void logOut() throws IOException{
+    public void logOut() throws IOException {
 
         this.signoutEvent.fire(new AuthenticationEvent(this.getAuthenticatedUser().getName(), AuthenticationEvent.AuthenticationType.SIGNOUT));
         this.authenticatedUser = null;

@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Niek on 22/03/14.
  */
-@Entity
+@Entity(name = "PermissionRole")
 public class Role {
     @Id @GeneratedValue
     private int roleID;
