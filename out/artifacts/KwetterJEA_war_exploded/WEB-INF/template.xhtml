@@ -3,6 +3,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<base href="#{request.requestURL.substring(0, request.requestURL.length() - request.requestURI.length())}#{request.contextPath}/"/>
 <h:head>
     <h:outputScript library="js" name="jquery-2.1.0.min.js"/>
     <h:outputStylesheet library="bootstrap" name="bootstrap.css"/>
@@ -20,17 +21,12 @@
     <div class="container">
 
         <div class="contentWrapper">
-                <ui:insert name="content">
-                    Default Content
-                </ui:insert>
+            <ui:insert name="content">
+                Default Content
+            </ui:insert>
 
 
-            <div class="footer">
-                <ui:insert name="footer">
-                    <ui:include src="includes/footer.xhtml"/>
-                </ui:insert>
-            </div>
         </div>
-        </div>
+    </div>
 </h:body>
 </html>

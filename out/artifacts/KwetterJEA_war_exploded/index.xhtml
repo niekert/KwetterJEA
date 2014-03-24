@@ -2,26 +2,127 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    xmlns:p="http://primefaces.org/ui">
 
 
     <ui:define name="content">
+        <f:event type="preRenderView" listener="#{homeBean.validateLogin}"/>
 
-        <h:panelGroup layout="block" rendered="#{sessionBean.authenticatedUser eq null}">
-            <div class="pill login-pill" id="loginPill">
+        <!--Render the content when the user is authenticated-->
+        <h:panelGroup layout="block" id="contentProfile" rendered="#{sessionBean.authenticatedUser != null}">
+            <h:form id="search">
+                <div class="pill searchbar">
+                    <div class="fullSearch">
+                        <p:inputText id="txtSearch" placeholder="Search tweets" styleClass="searchbar"
+                                     value="#{homeBean.searchText}"/>
+                        <p:commandButton styleClass="searchIcon" value="" action="#{homeBean.searchTweets()}"
+                                         update=":contentProfile"/>
+                    </div>
+                </div>
+            </h:form>
 
-                    <ui:insert name="login">
-                        <ui:include src="WEB-INF/views/LoginView.xhtml"/>
-                    </ui:insert>
-            </div>
+            <h:form id="mainform">
 
+                <h:panelGroup id="contentContainer" layout="block">
+                    <div class="dashboard">
+                        <!--Number of tweets-->
+                        <div class="pill" id="userPill">
+                            <p:outputLabel value="Your tweets: #{fn:length(sessionBean.authenticatedUser.tweets)}"/>
 
-            <div class="pill login-pill" id="registerPill" style="display:none">
-            </div>
+                            <div class="tweetContainer">
+                                <div class="small">
+                                    <h:outputText
+                                            value="#{homeBean.latestTweet.friendlyDateFormat} from #{homeBean.latestTweet.vanaf}:"/>
+                                </div>
+                                <p:outputLabel value="#{homeBean.latestTweet.content}"/>
+                            </div>
+                        </div>
 
+                        <div class="pill followingpill">
+                            <p:dataGrid var="following" value="#{sessionBean.authenticatedUser.following}">
+
+                                <f:facet name="header">
+                                    <p:outputLabel value="Following"/>
+                                </f:facet>
+                                <h:outputLink value="profile/#{following.name}">#{following.name}</h:outputLink>
+                            </p:dataGrid>
+
+                            <p:dataGrid var="following" value="#{sessionBean.authenticatedUser.followers}">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Followers"/>
+                                </f:facet>
+                                <h:outputLink value="profile/#{following.name}">#{following.name}</h:outputLink>
+                            </p:dataGrid>
+                        </div>
+
+                        <div class="pill trends">
+                            <label>Current trends</label>
+                            <p:tagCloud model="#{homeBean.model}" style="width:100%">
+                                <p:ajax event="select" update=":contentProfile" listener="#{homeBean.searchTag}"/>
+                            </p:tagCloud>
+                        </div>
+                    </div>
+
+                    <div class="rightContent">
+
+                        <!--New tweet pill-->
+                        <div class="pill postTweet">
+                            <div class="fullSearch">
+                                <label>Post a new Tweet</label>
+                                <p:inputText id="txtPostNew"
+                                             autocomplete="false"
+                                             placeholder="What's happening?" styleClass="newTweet"
+                                             validatorMessage="A maximumum of only 140 characters is allowed."
+                                             value="#{homeBean.newTweetContents}">
+                                    <f:validateLength maximum="140"/>
+                                    <p:ajax update="msgs" event="keyup"/>
+                                </p:inputText>
+                                <p:messages id="msgs"/>
+
+                                <div style="margin-top:3px">
+                                    <p:commandButton id="btnSend" value="Submit" validateClient="true"
+                                                     actionListener="#{homeBean.postNewTweet}"
+                                                     update=":contentProfile"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Load tweets pill-->
+                        <div class="pill loadTweets" id="tweetsContainer">
+                            <p:tabView id="tabView" activeIndex="#{homeBean.tabIndex}">
+                                <p:tab id="tab1" title="Timeline">
+                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                        <ui:param name="datasource" value="#{homeBean.timeline}"/>
+                                        <ui:param name="header" value="Your personal timeline"/>
+                                        <ui:param name="emptyText" value="There's nothing on your timeline."/>
+                                    </ui:include>
+                                </p:tab>
+
+                                <p:tab id="mentions" title="@Mentions">
+                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                        <ui:param name="datasource" value="#{homeBean.mentions}"/>
+                                        <ui:param name="header" value="Your mentions"/>
+                                        <ui:param name="emptyText" value="Nobody mentioned you! (HAHAH!)"/>
+                                    </ui:include>
+                                </p:tab>
+
+                                <p:tab id="searchResults" title="Search results" disabled="#{homeBean.searchResults eq false}">
+                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                        <ui:param name="datasource" value="#{homeBean.filteredTweets}"/>
+                                        <ui:param name="header" value="Search Results for #{homeBean.searchText}"/>
+                                        <ui:param name="emptyText" value="No tweets found."/>
+                                    </ui:include>
+                                </p:tab>
+                            </p:tabView>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </h:form>
         </h:panelGroup>
-
     </ui:define>
+
 
 </ui:composition>

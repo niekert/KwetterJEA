@@ -10,7 +10,16 @@ body {
 .pill{
     background-color: #fff;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 6px;
+    border:0;
+    position: relative;
+    margin-bottom:10px;
+}
+
+.main-logo {
+    cursor: pointer;
+    line-height: 30px;
+    font-size: 24px;
 }
 
 .login-pill{
@@ -20,6 +29,20 @@ body {
     width: 600px;
     height: 300px;
     margin:-150px 0 0 -300px;
+}
+
+.avatarContainer {
+    height:100px;
+    width:100px;
+    padding:5px;
+    border-radius:3px;
+    background-color:#898A84;
+    margin:0 auto;
+}
+
+.containedImage {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
@@ -35,7 +58,7 @@ body {
 .header {
     background-color: #fff;
     border-bottom: 1px solid #e5e5e5;
-    position:fixed;
+    position:absolute;
     left:0;
     right:0;
 }
@@ -58,6 +81,18 @@ body {
     margin-top: 85px;
     margin-bottom: 30px;
 }
+
+.dashboard {
+    float:left;
+    width: 30%;
+}
+
+.rightContent{
+    float:right;
+    width:68%;
+}
+
+
 /* Custom page footer */
 .footer {
     padding-top: 19px;
@@ -100,6 +135,16 @@ body {
     margin-top: 28px;
 }
 
+.labelMargin {
+    margin-right:10px;
+    cursor:pointer;
+    color: #000;
+}
+
+.labelMargin:hover {
+    color: #696969;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     /* Remove the padding we set earlier */
@@ -120,3 +165,46 @@ body {
         border-bottom: 0;
     }
 }
+
+.fullSearch {
+    position:relative;
+}
+
+.fullSearch input {
+    width:100%;
+    padding-left: 30px;
+}
+
+.fullSearch .searchIcon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 6px;
+    border: 0px;
+    overflow: hidden;
+    background: url("#{resource['images:search.png']}");
+}
+
+.tweetContainer {
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.profileLink{
+    display:block;
+    color: #000;
+    font-weight:bold;
+}
+
+.small {
+    font-style:italic;
+}
+
+.newTweet{
+    padding-left:2px !important;
+}
+
+
+/*Icons*/
