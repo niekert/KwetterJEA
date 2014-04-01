@@ -17,10 +17,6 @@ public class User implements Serializable
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "name")
     private String name;
 
@@ -55,7 +51,7 @@ public class User implements Serializable
     private List<Tweet> tweets = new ArrayList();
 
     @ManyToMany (cascade = CascadeType.PERSIST)
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     public User()
     {
@@ -66,13 +62,13 @@ public class User implements Serializable
         this.name = naam;
     }
 
-    public User(String naam, String web, String bio, String email, String plainTextPassword)
+    public User(String naam, String web, String bio, String email, String hashedPassword)
     {
         this.name = naam;
         this.web = web;
         this.bio = bio;
         this.email = email;
-        this.password = plainTextPassword;
+        this.password = hashedPassword;
         this.activationLink = Utilities.hashPassword(naam + email);
     }
 
@@ -81,12 +77,9 @@ public class User implements Serializable
         this.web = web;
         this.bio = bio;
         this.email = "MockEmail@gmail.com";
-        this.password = " password";
+        this.password = Utilities.hashPassword("password");
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public List<User> getFollowers()
     {

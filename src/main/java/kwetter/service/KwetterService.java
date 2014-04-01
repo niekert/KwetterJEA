@@ -2,6 +2,7 @@ package kwetter.service;
 
 import kwetter.dao.TweetDAO;
 import kwetter.dao.UserDAO;
+import kwetter.domain.Role;
 import kwetter.domain.Tweet;
 import kwetter.domain.User;
 import kwetter.events.AuthenticationEvent;
@@ -11,6 +12,7 @@ import kwetter.interceptors.TweetInterceptor;
 import kwetter.qualifiers.JPAQualifier;
 import kwetter.utils.CaseInsensitiveSet;
 import kwetter.utils.Constants;
+import kwetter.utils.Utilities;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -34,11 +36,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.rmi.CORBA.Util;
 
 
 @Startup
 @Singleton
-@Stateful
 public class KwetterService implements Serializable {
 
     @Inject
@@ -79,12 +81,14 @@ public class KwetterService implements Serializable {
      * @return TODO: Password authentication
      */
     public User authenticateUser(String username, String password) {
-        if (username.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             return null;
         }
 
+        String hashedPassword = Utilities.hashPassword(password);
+        password = null;
 
-        return userDAO.findByName(username);
+        return userDAO.authenticateUser(username, hashedPassword);
     }
 
     /**
@@ -223,17 +227,29 @@ public class KwetterService implements Serializable {
         this.sendActivationEmail(newUser);
     }
 
+    public boolean ActivateUserWithID(String activationID){
+        boolean success = false;
+        User foundUser = userDAO.findUserByRegistrationID(activationID);
+        if(foundUser != null){
+            foundUser.setActivationLink(null);
+            userDAO.edit(foundUser);
+            success = true;
+        }
+
+        return success;
+
+    }
+
     private void sendActivationEmail(User user) {
         try {
             // Create email and headers.
             Message msg = new MimeMessage(session);
             msg.setSubject("Kwetter activation");
-            msg.setRecipient(RecipientType.TO, new InternetAddress(user.getEmail(), user.getName()));
-            msg.setFrom(new InternetAddress("jenkins@niekkruse.nl", "Kwetter"));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress((user.getEmail()), user.getName()));
+            msg.setFrom(new InternetAddress(session.getProperty("mail.from")));
             // Body text.
             String activationlink = "http://localhost:8080/kwetter/activate?id=" + user.getActivationLink();
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Please press the following activation link to activate your account " + activationlink);
+            msg.setText("Hey, " + user.getName() + ". Please press the following activation link to activate your account " + activationlink);
 
             Transport.send(msg);
         } catch (Exception ex) {
@@ -246,6 +262,8 @@ public class KwetterService implements Serializable {
      */
     public void initUsers() {
 
+        Role role = new Role("normal");
+        Role adminRole = new Role("admin");
         System.out.println("Initializing users");
         User u1 = new User("Niek", "http", "geboren 1");
         User u2 = new User("Frank", "httpF", "geboren 2");
@@ -256,6 +274,12 @@ public class KwetterService implements Serializable {
         userDAO.addFollowing(u3, u1);
         userDAO.addFollowing(u4, u1);
         userDAO.addFollowing(u2, u3);
+
+        u1.getRoles().add(role);
+        u1.getRoles().add(adminRole);
+        u2.getRoles().add(role);
+        u3.getRoles().add(role);
+        u4.getRoles().add(role);
 
         userDAO.create(u1);
         userDAO.create(u2);
@@ -344,5 +368,11 @@ public class KwetterService implements Serializable {
     public void onNewTweetPostEvent(@Observes NewTweetEvent event) {
         this.postNewTweet(event.getTweet());
         System.out.println("A new tweet was poted at: " + event.getTweet().getDatum().toString());
+    }
+
+
+    public void removeTweet(Tweet tweet)
+    {
+        tweetDao.remove(tweet);
     }
 }

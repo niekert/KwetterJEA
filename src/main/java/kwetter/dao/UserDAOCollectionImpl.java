@@ -65,6 +65,16 @@ public class UserDAOCollectionImpl implements UserDAO, Serializable
     }
 
     @Override
+    public User findUserByRegistrationID(String activationID) {
+        return null;
+    }
+
+    @Override
+    public User authenticateUser(String username, String password) {
+        return null;
+    }
+
+    @Override
     public User find(Long id)
     {
         throw new NotImplementedException();

@@ -10,6 +10,8 @@ import org.primefaces.model.tagcloud.DefaultTagCloudModel;
 import org.primefaces.model.tagcloud.TagCloudItem;
 import org.primefaces.model.tagcloud.TagCloudModel;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.faces.context.ExternalContext;
@@ -27,7 +29,7 @@ import java.util.Map;
  * Created by Niek on 14-2-14.
  */
 @Named
-@ViewScoped
+@RequestScoped
 public class HomeBean {
 
     @Inject
@@ -82,20 +84,14 @@ public class HomeBean {
     }
 
 
-    public void validateLogin() throws IOException {
-        if (session.getAuthenticatedUser() == null) {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            externalContext.redirect("login/");
-        } else {
-            this.homeUser = session.getAuthenticatedUser();
-        }
-    }
-
     /**
      * Get the latest tweet posted  by the user.
      * @return
      */
     public Tweet getLatestTweet() {
+        if(this.homeUser != null && homeUser.getTweets().isEmpty()){
+            return null;
+        }
         return homeUser.getTweets().get(0);
     }
 
@@ -123,7 +119,7 @@ public class HomeBean {
 
         if (this.newTweetContents.isEmpty()) return;
 
-        User userPosting = service.find(session.getAuthenticatedUser().getId());
+        User userPosting = service.find(session.getAuthenticatedUser().getName());
 
         newTweetEvent.fire(new NewTweetEvent(new Tweet(userPosting, newTweetContents, new Date(), "pc")));
         newTweetContents = "";
@@ -160,6 +156,11 @@ public class HomeBean {
         TagCloudItem item = (TagCloudItem) event.getObject();
         this.searchText = item.getLabel();
         this.searchTweets();
+    }
+
+    @PostConstruct
+    public void init(){
+        this.homeUser = session.getAuthenticatedUser();
     }
 
 }

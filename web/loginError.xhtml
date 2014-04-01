@@ -3,17 +3,18 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-                xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
+        <f:event type="preRenderView" listener="#{authenticationBean.checkIfAlreadyAuthenticated}"/>
 
         <h:panelGroup layout="block" rendered="#{sessionBean.authenticatedUser eq null}">
             <div class="pill login-pill" id="loginPill">
+                <div class="alert alert-danger">
+                    The username and/or password you entered is incorrect.
 
-                    <ui:insert name="login">
-                        <ui:include src="WEB-INF/views/LoginView.xhtml">
-                            <ui:param name="id" value="main"/>
-                        </ui:include>
-                    </ui:insert>
+                    Try again.
+                </div>
+                <a href="login.xhtml">To Login</a>
             </div>
 
 

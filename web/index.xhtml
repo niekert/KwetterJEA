@@ -9,8 +9,6 @@
 
 
     <ui:define name="content">
-        <f:event type="preRenderView" listener="#{homeBean.validateLogin}"/>
-
         <!--Render the content when the user is authenticated-->
         <h:panelGroup layout="block" id="contentProfile" rendered="#{sessionBean.authenticatedUser != null}">
             <h:form id="search">
@@ -32,13 +30,15 @@
                         <div class="pill" id="userPill">
                             <p:outputLabel value="Your tweets: #{fn:length(sessionBean.authenticatedUser.tweets)}"/>
 
-                            <div class="tweetContainer">
-                                <div class="small">
-                                    <h:outputText
-                                            value="#{homeBean.latestTweet.friendlyDateFormat} from #{homeBean.latestTweet.vanaf}:"/>
-                                </div>
-                                <p:outputLabel value="#{homeBean.latestTweet.content}"/>
-                            </div>
+
+                            <h:panelGroup layout="block" styleClass="tweetContainer"
+                                          rendered="#{homeBean.latestTweet != null}">
+                                    <div class="small">
+                                        <h:outputText
+                                                value="#{homeBean.latestTweet.friendlyDateFormat} from #{homeBean.latestTweet.vanaf}:"/>
+                                    </div>
+                                    <p:outputLabel value="#{homeBean.latestTweet.content}"/>
+                            </h:panelGroup>
                         </div>
 
                         <div class="pill followingpill">
@@ -94,7 +94,7 @@
                         <div class="pill loadTweets" id="tweetsContainer">
                             <p:tabView id="tabView" activeIndex="#{homeBean.tabIndex}">
                                 <p:tab id="tab1" title="Timeline">
-                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                    <ui:include src="/WEB-INF/views/tweetTable.xhtml">
                                         <ui:param name="datasource" value="#{homeBean.timeline}"/>
                                         <ui:param name="header" value="Your personal timeline"/>
                                         <ui:param name="emptyText" value="There's nothing on your timeline."/>
@@ -102,15 +102,16 @@
                                 </p:tab>
 
                                 <p:tab id="mentions" title="@Mentions">
-                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                    <ui:include src="/WEB-INF/views/tweetTable.xhtml">
                                         <ui:param name="datasource" value="#{homeBean.mentions}"/>
                                         <ui:param name="header" value="Your mentions"/>
                                         <ui:param name="emptyText" value="Nobody mentioned you! (HAHAH!)"/>
                                     </ui:include>
                                 </p:tab>
 
-                                <p:tab id="searchResults" title="Search results" disabled="#{homeBean.searchResults eq false}">
-                                    <ui:include src="WEB-INF/views/tweetTable.xhtml">
+                                <p:tab id="searchResults" title="Search results"
+                                       disabled="#{homeBean.searchResults eq false}">
+                                    <ui:include src="/WEB-INF/views/tweetTable.xhtml">
                                         <ui:param name="datasource" value="#{homeBean.filteredTweets}"/>
                                         <ui:param name="header" value="Search Results for #{homeBean.searchText}"/>
                                         <ui:param name="emptyText" value="No tweets found."/>

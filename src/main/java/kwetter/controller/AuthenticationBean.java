@@ -1,18 +1,18 @@
 package kwetter.controller;
 
-import kwetter.domain.User;
 import kwetter.events.AuthenticationEvent;
 import kwetter.service.KwetterService;
 
-import javax.ejb.Stateless;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by Niek on 12/02/14.
@@ -27,13 +27,18 @@ public class AuthenticationBean implements Serializable {
     @Inject
     private KwetterService service;
 
-    @Inject @Any
+    @Inject
+    @Any
     private Event<AuthenticationEvent> authenticationEvent;
+
+    @ManagedProperty(value = "#{param.id}")
+    private String activationID;
 
 
     private boolean HasFailures = false;
     private String username;
     private String password;
+    private boolean isActivated = false;
 
     public boolean isLoginFailed() {
         return HasFailures;
@@ -59,40 +64,26 @@ public class AuthenticationBean implements Serializable {
         this.password = password;
     }
 
-    /**
-     * Checks if a person is already authenticated.
-     * @throws IOException
-     */
-    public void checkIfAlreadyAuthenticated() throws IOException{
-        if(sessionBean.getAuthenticatedUser() != null){
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");
-        }
+    public boolean isActivated() {
+        return isActivated;
     }
 
-    /**
-     * Authenticates the person to gain access to the website
-     * @return
-     */
-    public String AuthenticatePerson(){
 
-        authenticationEvent.fire(new AuthenticationEvent(this.getUsername(), AuthenticationEvent.AuthenticationType.SIGNIN));
-        User authenticatedPerson = service.authenticateUser(this.getUsername(), this.getPassword());
 
-        if(authenticatedPerson == null){
+    @PostConstruct
+    public void init() {
+        Map<String, String> map = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String id = map.get("id");
+
+        String error = map.get("error");
+
+        if (id != null && !id.isEmpty()) {
+            //Activate the user
+            this.isActivated = service.ActivateUserWithID(id);
+        }
+
+        if(error != null && ! error.isEmpty()){
             this.setLoginFailed(true);
-            return null;
         }
-
-        sessionBean.setAuthenticatedUser(authenticatedPerson);
-
-        this.setLoginFailed(false);
-
-        //Redirect to main page
-        try {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("/kwetter/");
-        } catch(IOException ex){
-            ex.printStackTrace();
-        }
-        return null;
     }
 }

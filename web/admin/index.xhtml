@@ -1,0 +1,29 @@
+<ui:composition template="../WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:dataList value="#{adminBean.tweets}" var="tweet" id="tweets"
+                        paginator="true" rows="5"
+                        paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15" type="none">
+
+                <f:facet name="header">
+                    Tweets
+                </f:facet>
+
+                <p:commandButton action="#{adminBean.removeTweet(tweet)}" update=":form" styleClass="btn btn-danger btn-smal" value="Remove tweet" title="Remove tweet"/>
+
+                <h:outputText value="#{tweet.content}" style="margin-left:10px" />
+                <br />
+
+            </p:dataList>
+        </h:form>
+    </ui:define>
+</ui:composition>

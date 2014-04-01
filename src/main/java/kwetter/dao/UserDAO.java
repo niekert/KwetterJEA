@@ -25,4 +25,8 @@ public interface UserDAO {
     boolean removeFollowing(User invokingUser, User targetUser);
 
     User registerNewUser(String username, String email, String password);
+
+    User findUserByRegistrationID(String activationID);
+
+    User authenticateUser(String username, String password);
 }

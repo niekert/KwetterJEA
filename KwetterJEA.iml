@@ -8,7 +8,7 @@
         <datasource-mapping>
           <factory-entry name="pu" />
         </datasource-mapping>
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/out/artifacts/KwetterJEA_war_exploded/WEB-INF/classes/META-INF/persistence.xml" />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
     <facet type="web" name="Web">
@@ -72,6 +72,35 @@
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.4" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.mail:mail:1.4.7" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.security:security:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.enterprise:hk2:0.3.31" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.enterprise:hk2-core:0.3.31" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.enterprise:config:0.3.31" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.enterprise:auto-depends:0.3.31" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.enterprise:tiger-types-osgi:0.3.31" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.security:realms:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.security:securitycommon:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.admin:config-api:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.common:common-util:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.common:glassfish-api:10.0.422" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.xml.stream:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.deployment:dol:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.servlet:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.annotation:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.transaction:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.enterprise.deploy:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.persistence:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.resource:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.deployment:deployment-common:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.common:internal-api:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.external:grizzly-module:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.common:annotation-framework:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.connectors:connectors-internal-api:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.transaction:transaction-internal-api:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.external:ldapbp-repackaged:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.security.auth.message:10.0-b28" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.security.jacc:10.0-b28" level="project" />
   </component>
   <component name="SonarSettingsModuleComponent">
     <option name="host" value="" />

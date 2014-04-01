@@ -1,9 +1,9 @@
 package kwetter.dao;
 
+import kwetter.domain.Role;
 import kwetter.domain.User;
 import kwetter.qualifiers.JPAQualifier;
 import kwetter.utils.Utilities;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.Singleton;
 import javax.ejb.Stateless;
@@ -32,12 +32,12 @@ public class UserDAO_JPAImpl implements UserDAO
     public void create(User user)
     {
         System.out.println("Creating");
-        em.persist(user);
+        em.merge(user);
     }
 
     public void edit(User user)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        em.merge(user);
     }
 
     public List<User> findAll()
@@ -98,9 +98,32 @@ public class UserDAO_JPAImpl implements UserDAO
         String hashedPassword = Utilities.hashPassword(password);
 
         User newUser = new User(username, "http", "Swaggerbuoi", email, hashedPassword);
-        em.persist(newUser);
+        Role role = new Role("normal");
+        em.merge(role);
+        newUser.getRoles().add(role);
+        em.merge(newUser);
 
         return newUser;
+    }
+
+    @Override
+    public User findUserByRegistrationID(String activationID) {
+        Query newQuery = this.em.createQuery("Select user from User user where user.activationLink = :activationID");
+        newQuery.setParameter("activationID", activationID);
+
+        List<User> usersfound  = newQuery.getResultList();
+        return usersfound.isEmpty() ? null : usersfound.get(0);
+
+    }
+
+    @Override
+    public User authenticateUser(String username, String password) {
+        Query newQuery = this.em.createQuery("Select user from User user where user.name = :name and user.password = :password and user.activationLink is null");
+        newQuery.setParameter("name", username);
+        newQuery.setParameter("password", password);
+
+        List<User> usersfound  = newQuery.getResultList();
+        return usersfound.isEmpty() ? null : usersfound.get(0);
     }
 
 }

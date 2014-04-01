@@ -12,4 +12,8 @@
         <pattern value="/login/"></pattern>
         <view-id value="../login.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/activate"></pattern>
+        <view-id value="/login.xhtml"/>
+    </url-mapping>
 </pretty-config>

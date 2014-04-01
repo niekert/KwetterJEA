@@ -7,15 +7,17 @@ import javax.persistence.*;
  */
 @Entity(name = "PermissionRole")
 public class Role {
-    @Id @GeneratedValue
-    private int roleID;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType type;
+    @Id @Column(name = "name")
+    private String name;
 
-    public enum RoleType {
-        Administrator,
-        Moderator,
-        user
+    public Role(){}
+
+    public Role(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

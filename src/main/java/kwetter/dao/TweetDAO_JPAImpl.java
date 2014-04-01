@@ -79,6 +79,7 @@ public class TweetDAO_JPAImpl implements TweetDAO
 
     public void remove(Tweet tweet)
     {
+        tweet = em.merge(tweet);
         em.remove(tweet);
     }
 
@@ -118,8 +119,8 @@ public class TweetDAO_JPAImpl implements TweetDAO
      */
     public List<Tweet> findMentions(User user)
     {
-        Query q = em.createQuery("select tweet from Tweet tweet join tweet.mentions mentions where mentions.id = :userid");
-        q.setParameter("userid", user.getId());
+        Query q = em.createQuery("select tweet from Tweet tweet join tweet.mentions mentions where mentions.name = :username");
+        q.setParameter("username", user.getName());
 
         List<Tweet> mentionedTweets = q.getResultList();
 

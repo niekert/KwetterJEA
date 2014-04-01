@@ -57,6 +57,11 @@ public class RegistrationBean {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isRegisterSuccess() {
+        return registerSuccess;
+    }
+
     //endregion
 
     public void Register() {
