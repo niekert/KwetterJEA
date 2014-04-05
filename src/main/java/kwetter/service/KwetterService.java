@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -41,6 +42,7 @@ import javax.rmi.CORBA.Util;
 
 @Startup
 @Singleton
+@Stateless
 public class KwetterService implements Serializable {
 
     @Inject
@@ -53,6 +55,8 @@ public class KwetterService implements Serializable {
 
     @Resource(name = "mail/kwetter")
     private Session session;
+
+    private Map<String, javax.websocket.Session> sessionMap = new HashMap<>();
 
 
     /**
@@ -374,5 +378,18 @@ public class KwetterService implements Serializable {
     public void removeTweet(Tweet tweet)
     {
         tweetDao.remove(tweet);
+    }
+
+
+    public void setSession(String username, javax.websocket.Session session){
+        this.sessionMap.put(username, session);
+    }
+
+    public javax.websocket.Session getSession(String username){
+        return this.sessionMap.get(username);
+    }
+
+    public void removeSession(String username){
+        this.sessionMap.remove(username);
     }
 }

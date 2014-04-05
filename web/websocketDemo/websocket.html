@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Websocket demo</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+        var wsUri = "ws://localhost:8080/kwetter/demoEndpoint";
+        var websocket;
+
+        function init() {
+            websocket = new WebSocket(wsUri);
+            websocket.onmessage = function(evt) {
+                onMessage(evt);
+            };
+
+        }
+        function onMessage(evt) {
+            $("#lblResponse").text(evt.data);
+        }
+
+
+        $(document).ready(function(){
+            init();
+        });
+
+        function send() {
+            var input = $("#txtInput").val();
+            websocket.send(input);
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="txtInput"/>
+    <button id="btnSend" onclick="send(); return false;">Send input</button>
+
+    <label id="lblResponse"/>
+</body>
+</html>

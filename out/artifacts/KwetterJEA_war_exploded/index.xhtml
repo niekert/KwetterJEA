@@ -7,8 +7,8 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     xmlns:p="http://primefaces.org/ui">
 
-
     <ui:define name="content">
+        <h:outputScript name="js/TweetSockets.js" target="head"/>
         <!--Render the content when the user is authenticated-->
         <h:panelGroup layout="block" id="contentProfile" rendered="#{sessionBean.authenticatedUser != null}">
             <h:form id="search">
@@ -23,7 +23,7 @@
             </h:form>
 
             <h:form id="mainform">
-
+                <p:remoteCommand name="updateTweets" update="contentContainer" />
                 <h:panelGroup id="contentContainer" layout="block">
                     <div class="dashboard">
                         <!--Number of tweets-->
@@ -68,24 +68,16 @@
 
                     <div class="rightContent">
 
-                        <!--New tweet pill-->
                         <div class="pill postTweet">
                             <div class="fullSearch">
-                                <label>Post a new Tweet</label>
-                                <p:inputText id="txtPostNew"
-                                             autocomplete="false"
-                                             placeholder="What's happening?" styleClass="newTweet"
-                                             validatorMessage="A maximumum of only 140 characters is allowed."
-                                             value="#{homeBean.newTweetContents}">
-                                    <f:validateLength maximum="140"/>
-                                    <p:ajax update="msgs" event="keyup"/>
-                                </p:inputText>
-                                <p:messages id="msgs"/>
-
+                                <label>Post a new tweet</label>
+                                <input type="text" id="txtPostNewTweet" placeholder="What's happening?"
+                                       class="newTweet" />
                                 <div style="margin-top:3px">
-                                    <p:commandButton id="btnSend" value="Submit" validateClient="true"
-                                                     actionListener="#{homeBean.postNewTweet}"
-                                                     update=":contentProfile"/>
+                                    <button id="btnSendTweet" class="btn btn-success" onclick="postTweet(); return false;">Submit</button>
+                                </div>
+                                <div class="alert alert-danger" id="PostFail" style="display:none">
+                                    An error occured whilst trying to post your tweet :(
                                 </div>
                             </div>
                         </div>

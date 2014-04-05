@@ -61,11 +61,9 @@ public class SessionBean implements Serializable {
     public void logOut() {
         try {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            //((HttpServletRequest) ec.getRequest()).logout();
             ec.invalidateSession();
             ec.redirect("/kwetter/");
-//        } catch (ServletException ex) {
-//            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
+
         } catch (IOException e) {
             Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, e);
         }
