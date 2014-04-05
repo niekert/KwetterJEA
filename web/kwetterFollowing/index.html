@@ -7,26 +7,48 @@
 
     <script>
         var baseURL = "http://localhost:8080/kwetter/"
-        var followServiceBaseURL = baseURL + "/webapi/followingAPI"
+        var followServiceBaseURL = baseURL + "webapi/followingAPI"
 
         $(document).ready(function () {
 
-            $("#btnSearch").click(function(){
-                var username = $("#trxtUsername").val();
-
-
+            $("#btnSearch").click(function () {
+                var username = $("#txtUsername").val();
+                loadUser(username);
 
             });
         });
 
-        function loadUser(username){
+        function loadUser(username) {
             $.ajax({
                 type: "GET",
                 url: followServiceBaseURL + "/search/" + username,
                 contentType: "application/json",
                 dataType: "json",
-                success: function (user) {
-                    debugger;
+                success: function (users) {
+
+                    $("#tblusers").children("tbody").remove();
+
+                    var $tbody = $("<tbody>");
+                    for (var i = 0; i < users.length; i++) {
+                        var user = users[i];
+
+                        var $checkbox = $("<input>").attr('type', 'checkbox').attr('disabled', true);
+
+                        if (user.following) {
+                            $checkbox.attr('checked', true);
+                        }
+
+                        $tbody.append($("<tr>")
+                                .append($("<td>").text(user.username))
+                                .append($("<td>").text(user.web))
+                                .append($("<td>").append($("<a>").attr('href', baseURL + user.url).text('Profile')))
+                                .append($("<td>").append($checkbox))
+                        );
+
+                    }
+
+
+                    $("#tblusers").append($tbody);
                 },
                 error: function (jqxhr, status, errothrown) {
                     alert(errothrown);
@@ -48,7 +70,14 @@
 <fieldset id="fieldsetFollowers">
     <legend>Followers</legend>
     <div id="divContainer">
-
+        <table id="tblusers">
+            <thead>
+                <th>Username</th>
+                <th>Web</th>
+                <th>Profile</th>
+                <th>Followback?</th>
+            </thead>
+        </table>
     </div>
 </fieldset>
 </body>
