@@ -6,7 +6,11 @@
 
     <groupId>KwetterJEA</groupId>
     <artifactId>KwetterJEA</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>KwetterGO</module>
+    </modules>
 
     <repositories>
         <repository>

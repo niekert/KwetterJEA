@@ -29,14 +29,6 @@ public class KwetterEndpoint
         User user = service.find(username);
         Tweet tweet = new Tweet(user, tweetContent, new Date(), "Kwetter push!");
         service.postNewTweet(tweet);
-        List<User> followers = user.getFollowers();
-        for (User u : followers) {
-            Session s = service.getSession(u.getName());
-            if (s != null) {
-                s.getAsyncRemote().sendText("update");
-            }
-        }
-
     }
 
     @OnOpen

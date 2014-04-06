@@ -221,6 +221,14 @@ public class KwetterService implements Serializable {
         }
 
         tweetDao.create(postedTweet);
+
+        List<User> followers = postedTweet.getUser().getFollowers();
+        for (User u : followers) {
+            javax.websocket.Session s = this.getSession(u.getName());
+            if (s != null) {
+                s.getAsyncRemote().sendText("update");
+            }
+        }
     }
 
     public void registerNewUser(String username, String email, String password) throws MessagingException, UnsupportedEncodingException {
