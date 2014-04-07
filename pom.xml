@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>KwetterGO</module>
+        <module>KwetterMonitor</module>
     </modules>
 
     <repositories>

@@ -22,6 +22,10 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.ObjectMessage;
+import javax.jms.Topic;
 import javax.mail.Transport;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -56,7 +60,19 @@ public class KwetterService implements Serializable {
     @Resource(name = "mail/kwetter")
     private Session session;
 
+
+    @Resource(lookup = "jms/__defaultConnectionFactory")
+    private ConnectionFactory connectionFactory;
+
+    @Resource(lookup = "KwetterMonitorTopic")
+    private Topic kwetterTopic;
+
     private Map<String, javax.websocket.Session> sessionMap = new HashMap<>();
+
+    private final static String SPORTS_TOPIC = "Sports";
+    private final static String POLITICS_TOPIC = "Politics";
+    private final static String GAMES_TOPIC = "Games";
+    private final static String COMPUTERS_TOPIC = "Computers";
 
 
     /**
@@ -229,6 +245,42 @@ public class KwetterService implements Serializable {
                 s.getAsyncRemote().sendText("update");
             }
         }
+
+        this.sendJMSTopic(postedTweet);
+    }
+
+    private void sendJMSTopic(Tweet tweet){
+        String topic = null;
+
+
+        if(tweet.getTrends().contains("#" + SPORTS_TOPIC)){
+            topic = SPORTS_TOPIC;
+        } else if (tweet.getTrends().contains("#" + COMPUTERS_TOPIC)){
+            topic = COMPUTERS_TOPIC;
+        } else if (tweet.getTrends().contains("#" + GAMES_TOPIC)){
+            topic = GAMES_TOPIC;
+        } else if(tweet.getTrends().contains("#" + POLITICS_TOPIC)) {
+            topic = POLITICS_TOPIC;
+        }
+
+        if(topic != null)
+        {
+            try (JMSContext context = connectionFactory.createContext())
+            {
+                ObjectMessage msg = context.createObjectMessage();
+                msg.setStringProperty("topicType", topic);
+                msg.setStringProperty("content", tweet.getContent());
+                msg.setStringProperty("postedBy", tweet.getUser().getName());
+                msg.setStringProperty("postedAt", tweet.getDatum().toString());
+
+
+                context.createProducer().send(kwetterTopic, msg);
+            } catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+
     }
 
     public void registerNewUser(String username, String email, String password) throws MessagingException, UnsupportedEncodingException {

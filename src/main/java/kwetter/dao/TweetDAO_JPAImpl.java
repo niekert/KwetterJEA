@@ -58,6 +58,7 @@ public class TweetDAO_JPAImpl implements TweetDAO
         //Iterate the hashtags
         for (String tag : hashtags)
         {
+            tweet.getTrends().add(tag);
             if(this.hashtagCollection.containsKey(tag)){
                 this.hashtagCollection.get(tag).add(tweet);
             } else {

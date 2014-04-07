@@ -30,6 +30,9 @@ public class Tweet implements Serializable, Comparable<Tweet>{
     @OneToMany
     private List<User> mentions = new ArrayList<User>();
 
+    @ElementCollection
+    private List<String> trends = new ArrayList<>();
+
     @JoinColumn(name = "user_id")
     @ManyToOne
     private User user;
@@ -92,6 +95,16 @@ public class Tweet implements Serializable, Comparable<Tweet>{
         return Utilities.getTimeAgo(this.postDate.getTime());
     }
 
+
+    public List<String> getTrends()
+    {
+        return trends;
+    }
+
+    public void setTrends(List<String> trends)
+    {
+        this.trends = trends;
+    }
 
     @Override
     public int hashCode() {

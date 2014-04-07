@@ -4,8 +4,6 @@ import javax.naming.NamingException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.CountDownLatch;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -15,7 +13,7 @@ import java.util.logging.Logger;
 public class MainForm
 {
 
-    private JPanel panel1;
+    private JPanel panelField;
     private JTextArea textArea1;
     private JTextField txtUser;
     private JButton postButton;
@@ -81,14 +79,16 @@ public class MainForm
 
     public static void main(String[] args)
     {
+        connectionFactory = lookup(ConnectionFactory.class, JNDI_CONNECTION_FACTORY);
+        queue = lookup(Queue.class, JNDI_TOPIC);
+
         JFrame frame = new JFrame("Kwetter GO");
-        frame.setContentPane(new MainForm().panel1);
+        frame.setContentPane(new MainForm().panelField);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
 
-        connectionFactory = lookup(ConnectionFactory.class, JNDI_CONNECTION_FACTORY);
-        queue = lookup(Queue.class, JNDI_TOPIC);
+
     }
     /**
      * @param <T>         the return type
